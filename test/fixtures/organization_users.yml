@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  organization: one
+  user: one
+  active: false
+  organization_user_id: 1
+
+two:
+  organization: two
+  user: two
+  active: false
+  organization_user_id: 1
