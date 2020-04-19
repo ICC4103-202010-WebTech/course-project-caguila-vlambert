@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_19_055233) do
+ActiveRecord::Schema.define(version: 2020_04_19_085409) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(version: 2020_04_19_055233) do
     t.integer "event_id", null: false
     t.integer "user_id", null: false
     t.string "content"
-    t.integer "event_chat_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_event_chats_on_event_id"
@@ -37,7 +36,6 @@ ActiveRecord::Schema.define(version: 2020_04_19_055233) do
     t.string "description"
     t.string "place"
     t.integer "user_id", null: false
-    t.integer "event_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "public"
@@ -60,8 +58,10 @@ ActiveRecord::Schema.define(version: 2020_04_19_055233) do
 
   create_table "invites", force: :cascade do |t|
     t.integer "event_id", null: false
-    t.integer "sender_id", null: false
-    t.integer "target_id", null: false
+    t.integer "sender_id"
+    t.integer "target_id"
+    t.string "title"
+    t.boolean "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_invites_on_event_id"
@@ -84,7 +84,6 @@ ActiveRecord::Schema.define(version: 2020_04_19_055233) do
     t.integer "organization_id", null: false
     t.integer "user_id", null: false
     t.boolean "active"
-    t.integer "organization_user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["organization_id"], name: "index_organization_users_on_organization_id"
@@ -92,7 +91,6 @@ ActiveRecord::Schema.define(version: 2020_04_19_055233) do
   end
 
   create_table "organizations", force: :cascade do |t|
-    t.integer "organiztion_id"
     t.string "description"
     t.string "place"
     t.string "name"
@@ -101,7 +99,6 @@ ActiveRecord::Schema.define(version: 2020_04_19_055233) do
   end
 
   create_table "passwords", force: :cascade do |t|
-    t.integer "psw_id"
     t.integer "user_id", null: false
     t.string "psw"
     t.boolean "active"
@@ -111,7 +108,6 @@ ActiveRecord::Schema.define(version: 2020_04_19_055233) do
   end
 
   create_table "user_mails", force: :cascade do |t|
-    t.integer "mail_id"
     t.integer "user_id", null: false
     t.boolean "active"
     t.string "mail"
@@ -138,7 +134,7 @@ ActiveRecord::Schema.define(version: 2020_04_19_055233) do
   add_foreign_key "hour_proposals", "users"
   add_foreign_key "invites", "events"
   add_foreign_key "invites", "senders"
-  add_foreign_key "invites", "targets"
+  add_foreign_key "invites", "user", column: "target_id"
   add_foreign_key "organization_users", "organizations"
   add_foreign_key "organization_users", "users"
   add_foreign_key "passwords", "users"

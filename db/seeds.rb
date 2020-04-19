@@ -13,39 +13,56 @@
   #end
 40.times do
     User.create do |user|
-    user.user_id = Faker::IDNumber.unique.chilean_id
     user.name = Faker::Name.name
-
     user.admin = false
     user.last =  Faker::Date.between(from: 1.year.ago, to: Date.today)
     end
   end
   20.times do
     User.create do|user|
-    user.user_id = Faker::IDNumber.unique.chilean_id
     user.name = Faker::Name.name
-
     user.admin = true
     user.last =  Faker::Date.between(from: 1.year.ago, to: Date.today)
     end
   end
-#5.times do
-#Organization.create do |organization|
-#organization.organization_id = Faker::Number.unique.within(range: 1..5)
-#organization.description = Faker::IndustrySegments.sector
-#organization.place = Faker::Address.unique.community
-#organization.name = Faker::Company.unique.name
-#end
-#end
-#60.times do
-# Password.create do |password|
-#password.psw_id = Faker::Number.unique.number(digits: 2)
-#password.user_id = User.
-#password.psw =  Faker::String.random(length: 6)
-#password.active = true
+5.times do
+  Organization.create do |organization|
 
-#end
-#end
+    organization.description = Faker::IndustrySegments.sector
+    organization.place = Faker::Address.unique.community
+    organization.name = Faker::Company.unique.name
+  end
+end
+
+60.times do
+  Password.create do |password|
+    password.user_id = User.all.sample.id
+    password.psw =  Faker::String.random(length: 6)
+    password.active = true
+  end
+end
+
+20.times do
+  Event.create! do |event|
+    event.description = Faker::String.random
+    event.place = Faker::WorldCup.stadium
+    event.user_id = User.all.sample.id
+    event.public = [true,false].sample
+    event.is_org = [true,false].sample
+    event.organization_id = Organization.all.sample.id
+
+  end
+end
+60.times do
+  HourProposal.create do |hour_proposal|
+    hour_proposal.event_id = Event.all.sample.id
+    hour_proposal.user_id = User.all.sample.id
+    hour_proposal.vote = Faker::Date.in_date_period
+    hour_proposal.is_voter_creator = [true,false].sample
+
+
+  end
+end
 
 
 

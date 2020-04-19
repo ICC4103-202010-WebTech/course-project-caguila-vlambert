@@ -10,6 +10,7 @@ class User < ApplicationRecord
     has_many :invites
     has_many :comments, dependent: :destroy
     has_many :events
+    has_one :password
     before_save :check_pasw_and_email
 
     private
