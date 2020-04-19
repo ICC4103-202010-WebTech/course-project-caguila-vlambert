@@ -17,18 +17,10 @@ class User < ApplicationRecord
         self_psw_act_id = self.passwords.active.pluck(:id) 
         self_psw_active = self.passwords.active.pluck(:psw)
         total_passwords_without_mine = Password.active.where.not(id:self_psw_act_id).pluck(:psw)
-        total_passwords_without_mine.each do |item|
-            print("_item a comparar: ")
-            puts(item)
-            print("mi psw: ")
-            puts(self_psw_active)
-            if item.eql?(self_psw_active.first)
-                print("oops the password is already used...")
-                return false
-            end
-        end
-        print("Eureka, password unique ")
+        puts(total_passwords_without_mine)
         puts(self_psw_active)
-        return true
+        if (total_passwords_without_mine.include? self_psw_active)
+            puts("password aproved, its unique!")
+        end
     end
 end
