@@ -11,6 +11,7 @@ class User < ApplicationRecord
     has_many :comments, :dependent => :delete_all
     has_many :events, :dependent => :delete_all
     before_save :check_pasw_and_mail
+    before_destroy :notify_org
     scope :activemail, ->{ joins(:emails).merge(Email.active)}
     private
     def check_pasw_and_mail
@@ -22,5 +23,8 @@ class User < ApplicationRecord
         total_passwords_without_mine = Password.active.where.not(id:self_psw_act_id).pluck(:psw)
         puts(total_passwords_without_mine)
         puts(self_psw_active)
+    end
+    def notify_org
+        id_list = Organization.joins(organization_users: :users)
     end
 end
