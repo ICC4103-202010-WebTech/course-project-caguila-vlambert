@@ -1,13 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  mail_id: 1
+  mail: MyString
   user: one
   active: false
-  mail: MyString
 
 two:
-  mail_id: 1
+  mail: MyString
   user: two
   active: false
-  mail: MyString
