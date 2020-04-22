@@ -67,8 +67,10 @@ ActiveRecord::Schema.define(version: 2020_04_20_165657) do
 
   create_table "invites", force: :cascade do |t|
     t.integer "event_id", null: false
-    t.integer "sender_id", null: false
-    t.integer "target_id", null: false
+    t.integer "sender_id"
+    t.integer "target_id"
+    t.string "title"
+    t.boolean "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_invites_on_event_id"
@@ -114,15 +116,6 @@ ActiveRecord::Schema.define(version: 2020_04_20_165657) do
     t.index ["user_id"], name: "index_passwords_on_user_id"
   end
 
-  create_table "user_mails", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.boolean "active"
-    t.string "mail"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_user_mails_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.boolean "admin"
@@ -142,9 +135,8 @@ ActiveRecord::Schema.define(version: 2020_04_20_165657) do
   add_foreign_key "hour_proposals", "users"
   add_foreign_key "invites", "events"
   add_foreign_key "invites", "senders"
-  add_foreign_key "invites", "targets"
+  add_foreign_key "invites", "user", column: "target_id"
   add_foreign_key "organization_users", "organizations"
   add_foreign_key "organization_users", "users"
   add_foreign_key "passwords", "users"
-  add_foreign_key "user_mails", "users"
 end

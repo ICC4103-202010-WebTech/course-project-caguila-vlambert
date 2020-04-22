@@ -11,14 +11,14 @@
   #event.place = Faker::Company.name
 
   #end
-40.times do
+10.times do
     User.create do |user|
     user.name = Faker::Name.name
     user.admin = false
     user.last =  Faker::Date.between(from: 1.year.ago, to: Date.today)
     end
   end
-  20.times do
+5.times do
     User.create do|user|
     user.name = Faker::Name.name
     user.admin = true
@@ -34,15 +34,15 @@
   end
 end
 
-60.times do
+15.times do
   Password.create do |password|
     password.user_id = User.all.sample.id
-    password.psw =  Faker::String.random(length: 6)
+    password.psw =  Faker::Internet.password
     password.active = true
   end
 end
 
-20.times do
+4.times do
   Event.create! do |event|
     event.description = Faker::String.random
     event.place = Faker::WorldCup.stadium
@@ -53,7 +53,7 @@ end
 
   end
 end
-60.times do
+16.times do
   HourProposal.create do |hour_proposal|
     hour_proposal.event_id = Event.all.sample.id
     hour_proposal.user_id = User.all.sample.id
@@ -64,7 +64,53 @@ end
   end
 end
 
+20.times do
+  EventChat.create do |event_chat|
+    event_chat.event_id = Event.all.sample.id
+    event_chat.user_id = User.all.sample.id
+    event_chat.content = Faker::String.random
+  end
+end
+15.times do
+  Email.create do |email|
+    email.mail = Faker::Internet.email
+    email.user_id = User.all.sample.id
+    email.active = true
+  end
+end
+20.times do
+  Invite.create do |invite|
+    invite.event_id = Event.all.sample.id
+    invite.sender_id = User.all.sample.id
+    invite.target_id = User.all.sample.id
+    invite.title = Faker::Company.name
+    invite.status = [true,false].sample
 
+  end
+end
+10.times do
+  OrganizationUser.create do |organization_user|
+    organization_user.organization_id = Organization.all.sample.id
+    organization_user.user_id = User.all.sample.id
+    organization_user.active = [true,false].sample
+  end
+end
+30.times do
+  Comment.create do |comment|
+    comment.user_id = User.all.sample.id
+    comment.event_id = Event.all.sample.id
+    comment.content = Faker::String.random
+  end
+end
+20.times do
+  Message.create do |message|
+    message.target_id = User.all.sample.id
+    message.sender_id = User.all.sample.id
+    message.content = Faker::String.random
+    message.seen = [true,false].sample
+
+  end
+end
 
 
 
