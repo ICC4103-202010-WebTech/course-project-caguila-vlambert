@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_20_165657) do
+ActiveRecord::Schema.define(version: 0) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -134,9 +134,4 @@ ActiveRecord::Schema.define(version: 2020_04_20_165657) do
   add_foreign_key "hour_proposals", "events"
   add_foreign_key "hour_proposals", "users"
   add_foreign_key "invites", "events"
-  add_foreign_key "invites", "senders"
-  add_foreign_key "invites", "user", column: "target_id"
-  add_foreign_key "organization_users", "organizations"
-  add_foreign_key "organization_users", "users"
-  add_foreign_key "passwords", "users"
 end
