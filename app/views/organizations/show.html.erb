@@ -1,4 +1,27 @@
 <p id="notice"><%= notice %></p>
+<h3>org name :<%= @organization.name%></h3>
 
-<%= link_to 'Edit', edit_organization_path(@organization) %> |
-<%= link_to 'Back', organizations_path %>
+<div class="card" style="margin: 20px">
+<table class="table">
+ <tbody>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Lastname</th>
+                <th scope="col">When did they join the org?</th>
+                </tr>
+                <% @my_org_participants.each do |me|%>
+                <tr style="margin: 20px">
+                <td ><%= @my_org_participants.index(me) + 1 %></td>
+                <td><%= User.where(id:me).pluck(:name) %></td>
+                
+                <td><%= User.where(id:me).pluck(:last) %></td>
+                <td><%= @my_org_participants_time_whenjoin[@my_org_participants.index(me)] %></td>
+                <% sample_org_user_id = OrganizationUser.where(user_id:me).first%>
+                <td><%= link_to 'See Orgs of this user', user_organization_user_path(me,sample_org_user_id.id) %></td>
+                </tr>
+            <% end %>
+
+            </tbody>
+</table>
+</div>

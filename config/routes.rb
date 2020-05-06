@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root "pages#home"
   resources :users do
     resources :comments
+    resources :invites
     resources :organization_users
     resources :events do
       resources :invites

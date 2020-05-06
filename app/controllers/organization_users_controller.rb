@@ -4,11 +4,11 @@ class OrganizationUsersController < ApplicationController
 
   # GET /organization_users.json
   def index
-    @organization_users = OrganizationUser.where(user_id:1)
+    @organization_users = OrganizationUser.where(user_id:params[:id])
+    @idd = params[:id]
   end
 
-  # GET /organization_users/1
-  # GET /organization_users/1.json
+  # GET /organization_users/:id
   def show
   end
 

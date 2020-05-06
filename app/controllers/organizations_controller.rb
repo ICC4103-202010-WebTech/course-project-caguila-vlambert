@@ -7,9 +7,11 @@ class OrganizationsController < ApplicationController
     @organizations = Organization.all
   end
 
-  # GET /organizations/1
+  # GET /organizations/:id
   # GET /organizations/1.json
   def show
+    @my_org_participants = OrganizationUser.where(organization_id:@organization.id).pluck(:user_id) 
+    @my_org_participants_time_whenjoin = OrganizationUser.where(organization_id:@organization.id).pluck(:created_at) 
   end
 
   # GET /organizations/new
@@ -64,7 +66,7 @@ class OrganizationsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_organization
-      @organization = Organization.find(1)
+      @organization = Organization.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

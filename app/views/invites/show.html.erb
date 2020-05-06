@@ -1,4 +1,27 @@
-<p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_invite_path(@invite) %> |
-<%= link_to 'Back', invites_path %>
+<!DOCTYPE html>
+<html>
+<p id="notice"><%= notice %></p>
+<table class="table table-dark">
+<%    @invites = Invite.where(target_id:1)%>
+ <tbody>
+    <tr>
+      <th scope="col">Event description </th>
+      <th scope="col"> Who invited you </th>
+      <th scope="col"> When is it?</th>
+      <th scope="col"> Title</th>
+    </tr>
+     <% @invites.each do |me|%>
+       <% sender = User.where(id:me.sender_id).pluck(:name)%>
+    <tr>
+      <td><%= me.event.description%></td>
+      <td><%= sender%></td>
+      <td><%= me.created_at%></td>
+      <td><%= me.title%></td>
+    </tr>
+<% end %>
+
+ </tbody>
+</table>
+
+</html>

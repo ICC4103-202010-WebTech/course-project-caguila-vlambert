@@ -1,1 +1,33 @@
 <p id="notice"><%= notice %></p>
+
+<h1>Organization Users</h1>
+<h3>the orgs of :<%= User.where(id:@organization_user.user_id).pluck(:name)%>  are the following :</h3>
+  <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">My organizations</h5>
+            <% @my_org_ids = OrganizationUser.where(user_id:@organization_user.user_id).pluck(:organization_id)%>
+            <% @my_actual_orgs_names = Organization.where(id:@my_org_ids).pluck(:name)%>
+            <% @my_actual_orgs_ides = Organization.where(id:@my_org_ids).pluck(:id)%>
+            <% @my_actual_orgs_places = Organization.where(id:@my_org_ids).pluck(:place)%>
+            <table class="table table-dark">
+            <tbody>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Organization</th>
+                <th scope="col">Place</th>
+                </tr>
+                <% @my_actual_orgs_names.each do |me|%>
+                <tr>
+                <td><%= @my_actual_orgs_names.index(me) + 1 %></td>
+                <td><%= me %></td>
+                <% num = @my_actual_orgs_names.index(me) %>
+                <td><%= @my_actual_orgs_places[num] %></td>
+                <td><%= link_to 'See Org', organization_path(@my_actual_orgs_ides[num]) %></td>
+                </tr>
+            <% end %>
+
+            </tbody>
+            </table>
+            
+      </div>
+    </div>

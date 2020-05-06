@@ -1,32 +1,120 @@
-<p id="notice"><%= notice %></p>
+<p id="notice">
+    <%= notice %>
+</p>
 <% idd = @event.id %>
-<%= idd%>
+    <div class="card text-center">
+        <div class="card-header">
+            <h3>Info for <%= @event.description%></h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-header">
+                                <h3>Guests</h3>
+                            </div>
+                            <table class="table table-dark">
+                                <% @this_event_invites = Invite.where(event_id:@event.id).pluck(:target_id)%>
+                                    <% @this_event_guests = User.where(id:@this_event_invites).pluck(:name)%>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Name</th>
+                                            </tr>
+                                            <% @this_event_guests.each do |me|%>
+                                                <tr>
+                                                    <td>
+                                                        <%= @this_event_guests.index(me) + 1 %>
+                                                    </td>
+                                                    <td>
+                                                        <%= me %>
+                                                    </td>
+                                                    <td>
+                                                        <%= link_to 'See User', user_path(@this_event_invites[@this_event_guests.index(me)]) %>
+                                                    </td>
+                                                </tr>
+                                                <% end %>
 
+                                        </tbody>
+                            </table>
 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card border-primary mb-3">
+                        <div class="card-body">
+                            <div class="card-body">
+                                <div class="card-header">
+                                    <h3>Chat</h3>
+                                </div>
+                                <table class="table table-dark">
+                                    <% @this_event_comments = Comment.where(event_id:@event.id).pluck(:content)%>
+                                        <% @this_event_commentscreators = Comment.where(event_id:@event.id).pluck(:user_id)%>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Sender</th>
+                                                    <th scope="col">Content</th>
+                                                </tr>
+                                                <% @this_event_comments.each do |me|%>
+                                                    <tr>
+                                                        <td>
+                                                            <%= @this_event_comments.index(me) + 1 %>
+                                                        </td>
+                                                        <td>
+                                                            <%= User.where(id:@this_event_commentscreators[@this_event_comments.index(me)]).pluck(:name)%>
+                                                        </td>
+                                                        <td>
+                                                            <%= me %>
+                                                        </td>
+                                                    </tr>
+                                                    <% end %>
 
+                                            </tbody>
+                                </table>
 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <table class="table">
+                        <h2>Hour proposals</h2>
+                        <% @this_events_votes = HourProposal.where(event_id:@event.id).pluck(:vote)%>
+                            <% @this_events_votes_users = HourProposal.where(event_id:@event.id).pluck(:user_id)%>
+                                <% @this_events_votes_is_creator = HourProposal.where(event_id:@event.id).pluck(:is_voter_creator)%>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Who proposed that hour</th>
+                                            <th scope="col">Hour proposal</th>
+                                        </tr>
+                                        <% @this_events_votes.each do |me|%>
+                                            <tr>
+                                                <td>
+                                                    <%= @this_events_votes.index(me)+ 1 %>
+                                                </td>
+                                                <td>
+                                                    <%= User.where(id:@this_events_votes_users[@this_events_votes.index(me)]).pluck(:name)%>
+                                                </td>
+                                                <td>
+                                                    <%= me %>
+                                                </td>
+                                                <td>
+                                                    <%= link_to 'See User invites', user_invites_path(@this_events_votes_users[@this_events_votes.index(me)]) %>
+                                                </td>
+                                            </tr>
+                                            <% end %>
+                                    </tbody>
+                    </table>
+                    <div class="col-sm-6">
+                    </div>
+                </div>
+            </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        </div>
+    </div>
