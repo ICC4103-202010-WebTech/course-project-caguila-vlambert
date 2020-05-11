@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Events</h1>
+<div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Events</h5>
+            <% @my_events = Invite.where(target_id:1).pluck(:event_id)%>
+            <% @my_actual_events_invited = Event.where(id:@my_events).pluck(:description)%>
+             <% @my_actual_events_ids = Event.where(id:@my_events).pluck(:id)%>
+            <table class="table table-dark">
+            <tbody>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">Event description</th>
+                </tr>
+                <% @my_actual_events_invited.each do |me|%>
+                <tr>
+                <td><%= @my_actual_events_invited.index(me) %></td>
+                <td><%= me %></td>
+                <td><%= link_to 'See Event', event_path(@my_actual_events_ids[@my_actual_events_invited.index(me)]) %></td>
+                </tr>
+            <% end %>
+
+            </tbody>
+            </table>
+            
+      </div>
+    </div>
+  </div>
