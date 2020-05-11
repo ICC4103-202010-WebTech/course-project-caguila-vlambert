@@ -4,14 +4,12 @@ class API::V1::CommentsController < APIController
   def index
     @eidc =Comment.select(:event_id)
     @miev = Event.where(id:@eidc)
-    @comments = Comment.all
+    @comments = Comment.where(event_id:params[:event_id])
     render json: @comments
   end
   # GET /api/v1/comments/:id
   def show
-    
     @comment = Comment.where(id: params[:id])
-
     render json: @comment
   end
   private
