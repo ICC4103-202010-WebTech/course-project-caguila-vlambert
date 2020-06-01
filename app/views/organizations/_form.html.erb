@@ -2,6 +2,8 @@
 <%= form_with(model: organization, local: true) do |form| %>
 <%= form.label :name%>
 <%= form.text_field :name%>
+<%= form.label :banner, "Banner" %>
+<%= form.file_field :banner %>
 <%= form.label :description%>
 <%= form.text_field :description%>
 <%= form.label :place%>

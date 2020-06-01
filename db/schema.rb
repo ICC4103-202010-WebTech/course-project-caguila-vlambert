@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_31_043444) do
+ActiveRecord::Schema.define(version: 2020_06_01_052152) do
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.integer "record_id", null: false
+    t.integer "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
 
   create_table "comments", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -63,6 +84,13 @@ ActiveRecord::Schema.define(version: 2020_05_31_043444) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_hour_proposals_on_event_id"
     t.index ["user_id"], name: "index_hour_proposals_on_user_id"
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_images_on_event_id"
   end
 
   create_table "invites", force: :cascade do |t|
@@ -126,6 +154,7 @@ ActiveRecord::Schema.define(version: 2020_05_31_043444) do
     t.string "bio"
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "events"
   add_foreign_key "comments", "users"
   add_foreign_key "emails", "users"
@@ -135,5 +164,6 @@ ActiveRecord::Schema.define(version: 2020_05_31_043444) do
   add_foreign_key "events", "users"
   add_foreign_key "hour_proposals", "events"
   add_foreign_key "hour_proposals", "users"
+  add_foreign_key "images", "events"
   add_foreign_key "invites", "events"
 end

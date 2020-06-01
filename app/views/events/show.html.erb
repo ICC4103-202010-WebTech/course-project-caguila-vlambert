@@ -2,11 +2,9 @@
     <%= notice %>
 </p>
 <% idd = @event.id %>
-    <div class="card text-center">
-        <div class="card-header">
+<div class="card-header">
             <h3>Info for <%= @event.description%></h3>
         </div>
-        <div class="card-body">
             <div class="row">
                 <div class="col-sm-6">
                     <div class="card">
@@ -118,3 +116,8 @@
 
         </div>
     </div>
+    <div class="card text-center">
+            <h3>Galeria imagenes:</h3>
+    <%Image.where(event_id:@event.id).each do |image|%>
+        <%= render partial: 'images/show_img', locals: {image: image}%>
+    <%end%>

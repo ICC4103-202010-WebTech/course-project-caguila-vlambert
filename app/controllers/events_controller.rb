@@ -15,10 +15,12 @@ class EventsController < ApplicationController
   # GET /events/new
   def new
     @event = Event.new
+    5.times{@event}
   end
 
   # GET /events/1/edit
   def edit
+    5.times{@event.images.build}
   end
 
   # POST /events
@@ -69,6 +71,6 @@ class EventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_params
-      params.fetch(:event, {}).permit(:place, :description, :user_id, :organization_id, :public, :is_org)
+      params.fetch(:event, {}).permit(:place, :description, :user_id, :event_files , :organization_id, :public, :is_org,:images_attributes => [:event_id])
     end
 end

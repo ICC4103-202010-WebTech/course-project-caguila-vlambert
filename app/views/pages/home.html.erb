@@ -10,6 +10,7 @@
           <th>Workers</th>
           <th>Update</th>
           <th>Delete</th>
+          <th>See</th>
         </tr>
         <%@Orgs = Organization.all%>
         <%@Orgs.each do |org|%>
@@ -19,6 +20,7 @@
         <td><%=tot_us_org%></td>
         <td><%= link_to 'Edit', edit_organization_path(org.id),class: ["btn", "btn-primary"]%></td>
         <td><%= link_to 'Delete', organization_path(org.id), data: {confirm:'Are you sure?'},method: :delete,class: ["btn", "btn-primary"]%></td>
+        <td><%= link_to 'See', organization_path(org.id),class: ["btn", "btn-primary"]%></td>
         </tr>
         <%end%>
       </tbody>
@@ -37,6 +39,7 @@
           <th>#Invited</th>
           <th>Update</th>
           <th>Delete</th>
+          <th>See</th>
         </tr>
         <%@evn = Event.all%>
         <%@evn.each do |e|%>
@@ -46,6 +49,8 @@
         <td><%=tot_e_inv.count%></td>
         <td><%= link_to 'Edit', edit_event_path(e.id),class: ["btn", "btn-primary"]%></td>
         <td><%= link_to 'Delete', event_path(e.id), data: {confirm:'Are you sure?'},method: :delete,class: ["btn", "btn-primary"]%></td>
+        <td><%= link_to 'See', event_path(e.id),class: ["btn", "btn-primary"]%></td>
+
         </tr>
         <%end%>
       </tbody>
@@ -81,6 +86,7 @@
       </tbody>
     </table>
       <td><%= link_to 'Create comment', new_comment_path(),class: ["btn", "btn-primary"]%></td>
+        <td><%= link_to 'Create image', new_image_path(),class: ["btn", "btn-primary"]%></td>
 
 
   </div>

@@ -6,6 +6,9 @@ class Event < ApplicationRecord
   has_many :invites
   belongs_to :organization, optional: true
   before_destroy :notify_event_deleted
+  has_many_attached :event_files
+  has_many :images ,inverse_of: :event
+  accepts_nested_attributes_for :images
 
   def notify_event_deleted
     my_id = self.id

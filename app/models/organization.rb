@@ -3,6 +3,7 @@ class Organization < ApplicationRecord
     has_many :users, through: :organization_users
     has_many :events, dependent: :delete_all
     accepts_nested_attributes_for :organization_users
+    has_one_attached :banner
 end
 
 
