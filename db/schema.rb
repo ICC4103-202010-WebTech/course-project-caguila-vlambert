@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_20_165657) do
+ActiveRecord::Schema.define(version: 2020_05_31_043444) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -122,6 +122,8 @@ ActiveRecord::Schema.define(version: 2020_04_20_165657) do
     t.datetime "last"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "location"
+    t.string "bio"
   end
 
   add_foreign_key "comments", "events"
@@ -134,9 +136,4 @@ ActiveRecord::Schema.define(version: 2020_04_20_165657) do
   add_foreign_key "hour_proposals", "events"
   add_foreign_key "hour_proposals", "users"
   add_foreign_key "invites", "events"
-  add_foreign_key "invites", "senders"
-  add_foreign_key "invites", "user", column: "target_id"
-  add_foreign_key "organization_users", "organizations"
-  add_foreign_key "organization_users", "users"
-  add_foreign_key "passwords", "users"
 end

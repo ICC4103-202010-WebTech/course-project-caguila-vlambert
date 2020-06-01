@@ -10,9 +10,11 @@
                 <th scope="col">Lastname</th>
                 <th scope="col">When did they join the org?</th>
                 </tr>
-                <% @my_org_participants.each do |me|%>
+                <%cont = 1%>
+                <% @my_org_participants.uniq.each do |me|%>
                 <tr style="margin: 20px">
-                <td ><%= @my_org_participants.index(me) + 1 %></td>
+                <td ><%= cont %></td>
+                <%cont +=1 %>
                 <td><%= User.where(id:me).pluck(:name) %></td>
                 
                 <td><%= User.where(id:me).pluck(:last) %></td>

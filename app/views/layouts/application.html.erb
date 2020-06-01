@@ -10,7 +10,8 @@
     <nav class="navbar navbar-dark bg-dark" style="background-color: #2d3032;">
     <ul class="navbar-nav mr-auto" style="margin: 10px">
         <li class="nav-item" style="margin: 10px"><span style="color:white;">Social Event the App</span></li>
-    <li class="nav-item" style="margin: 10px" style ="color:white;"><%= link_to 'My profile', root_path %></li>
+    <li class="nav-item" style="margin: 10px" style ="color:white;"><%= link_to 'Home', root_path %></li>
+        <li class="nav-item" style="margin: 10px" style ="color:white;"><%= link_to 'My profile', user_path(1) %></li>
         <li class="nav-item" style="margin: 10px" style ="color:white;"><%= link_to 'My events', user_events_path(1) %></li>
     <li class="nav-item" style="margin: 10px" style ="color:white;"><%= link_to 'Invites', user_invite_path(1,1) %></li>
     <li class="nav-item" style="margin: 10px" style ="color:white;"><%= link_to ' See my organizations', user_organization_user_path(1,1) %></li>

@@ -1,9 +1,10 @@
 class Organization < ApplicationRecord
-    has_many :organization_users, :dependent => :delete_all
+    has_many :organization_users, inverse_of: :organization
     has_many :users, through: :organization_users
-    has_many :events, :dependent => :delete_all
-    before_destroy :notify
+    has_many :events, dependent: :delete_all
+    accepts_nested_attributes_for :organization_users
 end
+
 
 
 #when organization is destroyed

@@ -10,17 +10,20 @@ class OrganizationsController < ApplicationController
   # GET /organizations/:id
   # GET /organizations/1.json
   def show
-    @my_org_participants = OrganizationUser.where(organization_id:@organization.id).pluck(:user_id) 
+    @my_org_participants = OrganizationUser.where(organization_id:@organization.id).pluck(:user_id)
     @my_org_participants_time_whenjoin = OrganizationUser.where(organization_id:@organization.id).pluck(:created_at) 
   end
 
   # GET /organizations/new
   def new
     @organization = Organization.new
+    10.times {@organization.organization_users.build}
   end
 
   # GET /organizations/1/edit
   def edit
+    @organization.organization_users.uniq
+    10.times {@organization.organization_users.build}
   end
 
   # POST /organizations
@@ -42,6 +45,7 @@ class OrganizationsController < ApplicationController
   # PATCH/PUT /organizations/1
   # PATCH/PUT /organizations/1.json
   def update
+    @organization.organization_users.uniq
     respond_to do |format|
       if @organization.update(organization_params)
         format.html { redirect_to @organization, notice: 'Organization was successfully updated.' }
@@ -56,7 +60,7 @@ class OrganizationsController < ApplicationController
   # DELETE /organizations/1
   # DELETE /organizations/1.json
   def destroy
-    @organization.destroy
+    @organization.delete
     respond_to do |format|
       format.html { redirect_to organizations_url, notice: 'Organization was successfully destroyed.' }
       format.json { head :no_content }
@@ -71,6 +75,7 @@ class OrganizationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def organization_params
-      params.fetch(:organization, {})
+      params.require(:organization).permit(:name, :description, :place, :organization_users_attributes => [:user_id,:organization_id])
+      #params.fetch(:organization_users,{}).permit(:user_id,:organization_id)
     end
 end

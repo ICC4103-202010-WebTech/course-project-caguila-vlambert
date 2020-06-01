@@ -1,17 +1,59 @@
+<div style="margin-left:340px">
 <%= form_with(model: event, local: true) do |form| %>
-  <% if event.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
-
-      <ul>
-        <% event.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
+  <%=form.label :description%>
+  <%=form.text_field :description%>
+  <%=form.label :place%>
+  <%=form.text_field :place%>
+  <div class="row">
+  <div class="col-sm-6">
+  <h4>select organization</h4>
+  <ul>
+  <% Organization.all.each do |o|%>
+  <li>
+  <%= form.radio_button(:organization_id, o.id)%>
+  <%= label_tag(:organization_id, o.name)%>
   <% end %>
-
+  </li>
+  </ul>
+  </div>
+    <div class="col-sm-6">
+    <ul>
+    <h4>select the user creator</h4>
+  <%User.all.each do |r|%>
+  <li>
+    <%= form.radio_button(:user_id,r.id)%>
+    <%= label_tag(:user_id,r.name)%>
+  <% end %>
+    </li>
+  </ul>
+  </div>
+  </div>
+  <div class="row" style="margin-left:10px">
+      <div class="col-sm-6">
+  <h4>Privacy</h4>
+    <ul>
+        <li><%= form.radio_button(:public, "True") %>
+        <%= label_tag(:public, "Public") %></li>
+    </ul>
+    <ul>
+        <li><%= form.radio_button(:public, "False") %>
+        <%= label_tag(:public, "Private") %></li>
+    </ul>
+  </div>
+      <div class="col-sm-6">
+        <h4>Ownership</h4>
+       <ul>
+        <li><%= form.radio_button(:is_org, "True") %>
+        <%= label_tag(:is_org, "Organization") %></li>
+    </ul>
+    <ul>
+        <li><%= form.radio_button(:is_org, "False") %>
+        <%= label_tag(:is_org, "User") %></li>
+    </ul>
+</div>
+</div>
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
+</div>

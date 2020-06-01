@@ -11,6 +11,13 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @invites = Invite.where(target_id:@user.id)
+    @is_boolean = ""
+    if(@user.admin)
+      @is_boolean = "This user is admin"
+    else
+      @is_boolean = "This user is not an admin"
+    end
+    @this_user_vents = Event.where(user_id:@user.id)
   end
 
   # GET /users/new
@@ -70,6 +77,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.fetch(:user, {})
+      params.fetch(:user, {}).permit(:admin, :name, :location, :bio)
     end
 end

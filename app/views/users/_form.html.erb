@@ -1,4 +1,30 @@
-<%= form_with(model: user, local: true) do |form| %>
+<%= form_with model: @user do |form| %>
+  <ul>
+        <li><%= form.radio_button(:admin, "True") %>
+        <%= label_tag(:admin, "Si admin") %></li>
+    </ul>
+    <ul>
+        <li><%= form.radio_button(:admin, "False") %>
+        <%= label_tag(:admin, "No admin") %></li>
+    </ul>
+  <div class="form-group">
+      <%= form.label :name %>
+      <%= form.text_field :name, class: "form-control" %>
+    </div>
+     <div class="form-group">
+      <%= form.label :location %>
+      <%= form.text_field :location, class: "form-control" %>
+    </div>
+     <div class="form-group">
+      <%= form.label :bio %>
+      <%= form.text_field :bio, class: "form-control" %>
+    </div>
+  
+  
+  
+  
+  
+  
   <% if user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
