@@ -22,8 +22,12 @@ class OrganizationsController < ApplicationController
 
   # GET /organizations/1/edit
   def edit
-    @organization.organization_users.uniq
-    10.times {@organization.organization_users.build}
+    list = @organization.organization_users.pluck(:user_id).uniq
+    if list.count<5
+      5.times {@organization.organization_users.build}
+    else
+      list.count.times {@organization.organization_users.build}
+    end
   end
 
   # POST /organizations

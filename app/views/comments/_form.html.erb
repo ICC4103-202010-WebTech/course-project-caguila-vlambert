@@ -1,6 +1,28 @@
-<%= form_with(model: comment, local: false) do |form| %>
-  
+<div style="margin-left:340px">
+
+<%= form_with model: @comment  do |form| %>
+<h2>Sender</h2>
+  <% User.all.each do |u|%>
+  <ul>
+        <li><%= form.radio_button(:user_id, u.id) %>
+        <%= label_tag(:user_id, u.name) %></li>
+    </ul>
+  <%end%>
+
+  <div class="form-group">
+      <%= form.label :content %>
+      <%= form.text_field :content, class: "form-control" %>
+    </div>
+    <h2>Select the event</h2>
+ <% Event.all.each do |u|%>
+  <ul>
+        <li><%= form.radio_button(:event_id, u.id) %>
+        <%= label_tag(:event_id, u.description) %></li>
+    </ul>
+  <%end%>
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
+
+</div>

@@ -1,41 +1,5 @@
 <p id="notice"><%= notice %></p>
-<div class="row" style="margin:10px">
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Edit profile</h5>
-        <p class="card-text">here you can edit your profile contact info</p>
-        <%= link_to 'Edit user', edit_user_path(1) %>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Future Events</h5>
-            <% @my_events = Invite.where(target_id:1).pluck(:event_id)%>
-            <% @my_actual_events_invited = Event.where(id:@my_events).pluck(:description)%>
-             <% @my_actual_events_ids = Event.where(id:@my_events).pluck(:id)%>
-            <table class="table table-dark">
-            <tbody>
-                <tr>
-                <th scope="col">#</th>
-                <th scope="col">Event description</th>
-                </tr>
-                <% @my_actual_events_invited.each do |me|%>
-                <tr>
-                <td><%= @my_actual_events_invited.index(me) %></td>
-                <td><%= me %></td>
-                <td><%= link_to 'See Event', event_path(@my_actual_events_ids[@my_actual_events_invited.index(me)]) %></td>
-                </tr>
-            <% end %>
 
-            </tbody>
-            </table>
-            
-      </div>
-    </div>
-  </div>
 <div class="row" style="margin:10px">
   <div class="col-sm-6" style="margin-left:340px">
   <h2>Admin operations</h2>
@@ -73,7 +37,6 @@
           <th>#Invited</th>
           <th>Update</th>
           <th>Delete</th>
-          <th>Create comment</th>
         </tr>
         <%@evn = Event.all%>
         <%@evn.each do |e|%>
@@ -83,7 +46,6 @@
         <td><%=tot_e_inv.count%></td>
         <td><%= link_to 'Edit', edit_event_path(e.id),class: ["btn", "btn-primary"]%></td>
         <td><%= link_to 'Delete', event_path(e.id), data: {confirm:'Are you sure?'},method: :delete,class: ["btn", "btn-primary"]%></td>
-        <td><%= link_to 'Create comment', new_event_comment_path(e.id),class: ["btn", "btn-primary"]%></td>
         </tr>
         <%end%>
       </tbody>
@@ -110,7 +72,7 @@
         <% us= User.where(id:com.user_id).first.name%>
         <tr>
         <td><%=eve_com%></td>
-        <td><%=com.content%></td>
+        <td><%=us%></td>
         <td><%=com.content%></td>
         <td><%= link_to 'Edit', edit_event_comment_path(Event.where(id:com.event_id).first.id,com.id),class: ["btn", "btn-primary"]%></td>
         <td><%= link_to 'Delete', event_comment_path(Event.where(id:com.event_id).first.id,com.id), data: {confirm:'Are you sure?'},method: :delete,class: ["btn", "btn-primary"]%></td>
@@ -118,7 +80,8 @@
         <%end%>
       </tbody>
     </table>
-          
+      <td><%= link_to 'Create comment', new_comment_path(),class: ["btn", "btn-primary"]%></td>
+
 
   </div>
 </div>
