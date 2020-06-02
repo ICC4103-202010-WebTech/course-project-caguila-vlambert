@@ -15,6 +15,7 @@ class ImagesController < ApplicationController
   # GET /images/new
   def new
     @image = Image.new
+    @idd = params[:event_id]
   end
 
   # GET /images/1/edit
@@ -25,10 +26,12 @@ class ImagesController < ApplicationController
   # POST /images.json
   def create
     @image = Image.new(image_params)
+    @image.event_id = params[:event_id]
+    @event = Event.where(id:params[:event_id]).first
     respond_to do |format|
       if @image.save
-        format.html { redirect_to @image, notice: 'Image was successfully created.' }
-        format.json { render :show, status: :created, location: @image }
+        format.html { redirect_to @event, notice: 'Image was successfully created.' }
+        format.json { render :show, status: :created, location: @event }
       else
         format.html { render :new }
         format.json { render json: @image.errors, status: :unprocessable_entity }

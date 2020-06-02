@@ -1,0 +1,20 @@
+<%= form_with(model: hour_proposal, local: true) do |form| %>
+<%= hidden_field_tag(:event_id, @idd) %>
+<%= hidden_field_tag(:user_id, @usr_idd) %>
+<%= form.date_field(:vote)%>
+  <% if hour_proposal.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(hour_proposal.errors.count, "error") %> prohibited this hour_proposal from being saved:</h2>
+
+      <ul>
+        <% hour_proposal.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

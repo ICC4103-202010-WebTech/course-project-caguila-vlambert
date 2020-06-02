@@ -1,8 +1,13 @@
 <%= form_with(model: invite, local: true) do |form| %>
+<%= hidden_field_tag(:event_id, @idd) %>
+<%= hidden_field_tag(:sender_id, 1) %>
+<%User.all.each do |u|%>
+<%= form.radio_button(:target_id,u.id)%>
+<%= form.label(:target_id,u.name)%>
+<%end%>
   <% if invite.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(invite.errors.count, "error") %> prohibited this invite from being saved:</h2>
-
       <ul>
         <% invite.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -10,7 +15,6 @@
       </ul>
     </div>
   <% end %>
-
   <div class="actions">
     <%= form.submit %>
   </div>

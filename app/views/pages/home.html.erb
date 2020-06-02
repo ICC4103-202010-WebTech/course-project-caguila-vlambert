@@ -1,7 +1,12 @@
 <p id="notice"><%= notice %></p>
-
+<h5>Search users</h5>
+<form action="/search">
+<input name="q" type="text" placeholder="Search User">
+<button type="submit">Search</button>
 <div class="row" style="margin:10px">
+
   <div class="col-sm-6" style="margin-left:340px">
+
   <h2>Admin operations</h2>
     <table class="table">
       <tbody>
@@ -31,6 +36,7 @@
   </div> 
 <div class="row" style="margin:10px">
   <div class="col-sm-6" style="margin-left:340px">
+  
     <h2>Events</h2>
     <table class="table">
       <tbody>
@@ -86,7 +92,6 @@
       </tbody>
     </table>
       <td><%= link_to 'Create comment', new_comment_path(),class: ["btn", "btn-primary"]%></td>
-        <td><%= link_to 'Create image', new_image_path(),class: ["btn", "btn-primary"]%></td>
 
 
   </div>

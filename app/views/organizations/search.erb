@@ -1,0 +1,4 @@
+<h3>Organization searched </h3>
+<%@organizations.each do |organization|%>
+<%= render partial: 'organizations/show_o', locals: {organization: organization}%>
+<%end%>

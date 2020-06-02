@@ -15,6 +15,10 @@ class InvitesController < ApplicationController
   # GET /invites/new
   def new
     @invite = Invite.new
+    @idd = params[:event_id]
+    puts("el parametro nuevo es =")
+    puts(@idd)
+    puts("-----")
   end
 
   # GET /invites/1/edit
@@ -25,11 +29,13 @@ class InvitesController < ApplicationController
   # POST /invites.json
   def create
     @invite = Invite.new(invite_params)
-
+    @invite.event_id = params[:event_id]
+    @invite.sender_id = 1
+    @event = Event.where(id:params[:event_id]).first
     respond_to do |format|
       if @invite.save
-        format.html { redirect_to @invite, notice: 'Invite was successfully created.' }
-        format.json { render :show, status: :created, location: @invite }
+        format.html { redirect_to @event}
+        format.json { render :show, status: :created, location: @event }
       else
         format.html { render :new }
         format.json { render json: @invite.errors, status: :unprocessable_entity }
@@ -69,6 +75,6 @@ class InvitesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def invite_params
-      params.fetch(:invite, {})
+      params.fetch(:invite, {}).permit(:event_id,:target_id,:sender_id)
     end
 end

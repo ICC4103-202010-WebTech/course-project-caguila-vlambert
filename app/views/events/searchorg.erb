@@ -1,0 +1,4 @@
+<h3>Results for searched events</h3>
+<%@events.each do |event|%>
+<%= render partial: 'events/show_e', locals: {event: event}%>
+<%end%>

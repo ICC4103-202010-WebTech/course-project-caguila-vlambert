@@ -1,7 +1,9 @@
 <p id="notice"><%= notice %></p>
-
+<form action="/evenorg">
+<input name="q" type="text" placeholder="Search Event of organization">
+<button type="submit">Search</button>
 <h1>Organization Users</h1>
-<h3>the orgs of :<%= User.where(id:@organization_user.user_id).pluck(:name)%>  are the following :</h3>
+<h3>the orgs of <%= User.where(id:@organization_user.user_id).first.name%>  are the following :</h3>
   <div class="card">
       <div class="card-body">
         <h5 class="card-title">My organizations</h5>

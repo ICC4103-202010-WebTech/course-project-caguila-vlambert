@@ -1,0 +1,6 @@
+<p id="notice"><%= notice %></p>
+ <% if(event_file.content.present?)%>
+        <%=link_to image_tag(event_file.content,:size => "400x400"),url_for(event_file.content) %>
+    <% else %>
+    <%end%>
+

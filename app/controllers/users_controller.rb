@@ -7,6 +7,22 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def search
+    @users =User.where("name like ?", "%#{params[:q]}%")
+  end
+
+ 
+  def show_search
+    @user= User.where(id:params[:search]).first
+    @invites = Invite.where(target_id:@user.id)
+    @is_boolean = ""
+    if(@user.admin)
+      @is_boolean = "This user is admin"
+    else
+      @is_boolean = "This user is not an admin"
+    end
+    @this_user_vents = Event.where(user_id:@user.id)
+  end
   # GET /users/1
   # GET /users/1.json
   def show
@@ -58,7 +74,7 @@ class UsersController < ApplicationController
       end
     end
   end
-
+  def 
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
@@ -77,6 +93,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.fetch(:user, {}).permit(:admin, :name, :location, :bio)
+      params.fetch(:user, {}).permit(:admin, :name, :location, :bio, :user_id)
     end
 end

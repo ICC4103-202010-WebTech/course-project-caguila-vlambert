@@ -1,12 +1,25 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-
   # GET /events
   # GET /events.json
   def index
     @events = Event.all
   end
-
+  def search
+    @parametro = params[:q]
+    @events =Event.where("description like ?", "%#{params[:q]}%")
+  end
+  def searchcreator
+   
+    @creator = User.where("name like ?", "%#{params[:q]}%").first
+    @events =Event.where(user_id:@creator.id)
+    @parametro = @creator.name
+  end
+  def searchorg
+    @creator = Organization.where("name like ?", "%#{params[:q]}%").first
+    @events =Event.where(organization_id:@creator.id)
+    @parametro = @creator.name
+  end
   # GET /events/1
   # GET /events/1.json
   def show
@@ -71,6 +84,6 @@ class EventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_params
-      params.fetch(:event, {}).permit(:place, :description, :user_id, :event_files , :organization_id, :public, :is_org,:images_attributes => [:event_id])
+      params.fetch(:event, {}).permit(:place, :description, :user_id, :organization_id, :public, :is_org,:images_attributes => [:event_id],:event_files_attributes => [:event_id])
     end
 end

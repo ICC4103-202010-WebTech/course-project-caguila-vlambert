@@ -1,12 +1,8 @@
 <%= form_with(model: image, local: true) do |form| %>
+<%= hidden_field_tag(:event_id, @idd) %>
 <%= form.label :flayer, "Add Image" %>
 <%= form.file_field :flayer %>
-<% Event.all.each do |u|%>
-    <ul>
-        <li><%= form.radio_button(:event_id, u.id) %>
-        <%= label_tag(:event_id, u.description) %></li>
-    </ul>
-  <%end%>
+
   <div class="actions">
     <%= form.submit %>
   </div>

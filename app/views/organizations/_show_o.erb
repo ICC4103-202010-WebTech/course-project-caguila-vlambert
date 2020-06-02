@@ -1,3 +1,6 @@
+<%@organization = organization%>
+<%@my_org_participants = OrganizationUser.where(organization_id:@organization.id).pluck(:user_id)%>
+    <%@my_org_participants_time_whenjoin = OrganizationUser.where(organization_id:@organization.id).pluck(:created_at) %>
 <div style="margin-left:10px">
 <form action="/searchorg">
 <input name="q" type="text" placeholder="Search Organization">
@@ -14,18 +17,18 @@
                 <tr>
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
-                <th scope="col">Lastname</th>
+                <th scope="col">Location</th>
                 <th scope="col">When did they join the org?</th>
+                <th scope="col">Action</th>
                 </tr>
                 <%cont = 1%>
                 <% @my_org_participants.uniq.each do |me|%>
                 <tr style="margin: 20px">
                 <td ><%= cont %></td>
                 <%cont +=1 %>
-                <td><%= User.where(id:me).pluck(:name) %></td>
-                
-                <td><%= User.where(id:me).pluck(:last) %></td>
-                <td><%= @my_org_participants_time_whenjoin[@my_org_participants.index(me)] %></td>
+                <td><%= User.where(id:me).first.name %></td>
+                <td><%= User.where(id:me).first.location %></td>
+                <td><%= @my_org_participants_time_whenjoin[@my_org_participants.index(me)].to_date %></td>
                 <% sample_org_user_id = OrganizationUser.where(user_id:me).first%>
                 <td><%= link_to 'See Orgs of this user', user_organization_user_path(me,sample_org_user_id.id) %></td>
                 </tr>

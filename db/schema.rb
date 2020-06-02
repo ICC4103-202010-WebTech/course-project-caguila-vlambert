@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_01_052152) do
+ActiveRecord::Schema.define(version: 2020_06_01_233223) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -62,6 +62,13 @@ ActiveRecord::Schema.define(version: 2020_06_01_052152) do
     t.index ["user_id"], name: "index_event_chats_on_user_id"
   end
 
+  create_table "event_files", force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_event_files_on_event_id"
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "description"
     t.string "place"
@@ -82,6 +89,7 @@ ActiveRecord::Schema.define(version: 2020_06_01_052152) do
     t.boolean "is_voter_creator"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "count"
     t.index ["event_id"], name: "index_hour_proposals_on_event_id"
     t.index ["user_id"], name: "index_hour_proposals_on_user_id"
   end
@@ -160,6 +168,7 @@ ActiveRecord::Schema.define(version: 2020_06_01_052152) do
   add_foreign_key "emails", "users"
   add_foreign_key "event_chats", "events"
   add_foreign_key "event_chats", "users"
+  add_foreign_key "event_files", "events"
   add_foreign_key "events", "organizations"
   add_foreign_key "events", "users"
   add_foreign_key "hour_proposals", "events"

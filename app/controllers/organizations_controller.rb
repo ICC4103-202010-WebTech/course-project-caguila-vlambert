@@ -13,7 +13,9 @@ class OrganizationsController < ApplicationController
     @my_org_participants = OrganizationUser.where(organization_id:@organization.id).pluck(:user_id)
     @my_org_participants_time_whenjoin = OrganizationUser.where(organization_id:@organization.id).pluck(:created_at) 
   end
-
+  def search
+    @organizations = Organization.where("name like ?", "%#{params[:q]}%")
+  end
   # GET /organizations/new
   def new
     @organization = Organization.new
