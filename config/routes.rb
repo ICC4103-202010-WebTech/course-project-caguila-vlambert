@@ -6,6 +6,16 @@ Rails.application.routes.draw do
   get 'evencre', to: "events#searchcreator"
   get 'evenorg', to: "events#searchorg"
   get 'searchorg', to: "organizations#search"
+  get '/admin/organizations', to: "organizations#index"
+  post 'admin/organizations', to: "organizations#create"
+  get '/admin/organization/:id', to: "organizations#show"
+  get 'admin/user/:id' ,to: "users#show"
+  post 'admin/users', to: "users#create"
+  get '/admin/users', to: "users#index"
+  patch '/admin/organizations/:id', to: 'organizations#update'
+  patch '/admin/users/:id', to: "users#update"
+  delete 'admin/organizations/:id' ,to: "organizations#destroy"
+  delete 'admin/users/:id', to: "users#destroy"
   resources :users do
     resources :invites
     resources :organization_users

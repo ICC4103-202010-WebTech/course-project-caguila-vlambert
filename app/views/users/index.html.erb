@@ -2,19 +2,24 @@
 
 <h1>Users</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th colspan="3"></th>
+      <th>name</th>
+      <th>show</th>
+      <th>edit</th>
+      <th>action</th>
     </tr>
   </thead>
 
   <tbody>
+  <%@users = User.all%>
     <% @users.each do |user| %>
       <tr>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= user.name%></td>
+        <td><%= link_to 'Show', user ,class: ["btn", "btn-primary"]%></td>
+        <td><%= link_to 'Edit', edit_user_path(user) ,class: ["btn", "btn-primary"]%></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } ,class: ["btn", "btn-primary"]%></td>
       </tr>
     <% end %>
   </tbody>

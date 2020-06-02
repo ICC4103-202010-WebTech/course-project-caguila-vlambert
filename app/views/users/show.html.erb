@@ -27,11 +27,11 @@
                <th scope="col"> Title</th>
             </tr>
             <% @invites.each do |me|%>
-            <% sender = User.where(id:me.sender_id).pluck(:name)%>
+            <% sender = User.where(id:me.sender_id).first.name%>
             <tr>
                <td><%= me.event.description%></td>
                <td><%= sender%></td>
-               <td><%= me.created_at%></td>
+               <td><%= me.created_at.to_date%></td>
                <td><%= me.title%></td>
             </tr>
             <% end %>
@@ -49,9 +49,26 @@
             <% @this_user_vents.each do |me|%>
             <tr>
                <td><%= me.description%></td>
-               <td><%= me.created_at%></td>
+               <td><%= me.created_at.to_date%></td>
                <td><%= me.place%></td>
-               <td><%= link_to 'Go to event',user_event_path(@user.id,me.id) %></td>
+               <td><%= link_to 'Go to event',user_event_path(@user.id,me.id) ,class: ["btn", "btn-primary"]%></td>
+            </tr>
+            <% end %>
+         </tbody>
+      </table>
+      <h4 style="maring:10px">Invitations that i have send: </h4>
+      <table class="table table-dark">
+         <tbody>
+            <tr>
+               <th scope="col">Event description </th>
+               <th scope="col"> Guest </th>
+            </tr>
+            <%@invitess = Invite.where(sender_id:@user.id)%>
+            <% @invitess.each do |me|%>
+            <% sender = User.where(id:me.target).first.name%>
+            <tr>
+               <td><%= me.event.description%></td>
+               <td><%= sender%></td>
             </tr>
             <% end %>
          </tbody>
