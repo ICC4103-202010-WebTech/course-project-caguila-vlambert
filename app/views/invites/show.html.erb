@@ -12,11 +12,11 @@
       <th scope="col"> Title</th>
     </tr>
      <% @invites.each do |me|%>
-       <% sender = User.where(id:me.sender_id).pluck(:name)%>
+       <% sender = User.where(id:me.sender_id).first%>
     <tr>
       <td><%= me.event.description%></td>
-      <td><%= sender%></td>
-      <td><%= me.created_at%></td>
+      <td><%= sender.name%></td>
+      <td><%= me.created_at.to_date%></td>
       <td><%= me.title%></td>
     </tr>
 <% end %>

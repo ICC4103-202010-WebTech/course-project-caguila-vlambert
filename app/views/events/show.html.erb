@@ -66,7 +66,8 @@
                         <%= @this_event_comments.index(me) + 1 %>
                      </td>
                      <td>
-                        <%= User.where(id:@this_event_commentscreators[@this_event_comments.index(me)]).pluck(:name)%>
+                        <% @u=User.where(id:@this_event_commentscreators[@this_event_comments.index(me)]).first%>
+                       <%= @u.name%>
                      </td>
                      <td>
                         <%= me %>
@@ -83,7 +84,9 @@
       <% @this_events_votes = HourProposal.where(event_id:@event.id).pluck(:vote)%>
       <% @this_events_votes_users = HourProposal.where(event_id:@event.id).pluck(:user_id)%>
       <% @this_events_votes_is_creator = HourProposal.where(event_id:@event.id).pluck(:is_voter_creator)%>
-      <tbody>
+      <% @c=HourProposal.where(event_id:@event.id).first %>
+      <% @count=@c.count %>
+     <tbody>
          <tr>
             <th scope="col">#</th>
             <th scope="col">Who proposed that hour</th>
@@ -91,6 +94,7 @@
             <th scope="col">See user</th>
            <th scope="col">Votes count</th>
             <th scope="col">Action</th>
+           <th scope="col">Vote</th>
          </tr>
          <% @this_events_votes.each do |me|%>
          <tr>
@@ -107,12 +111,14 @@
                <%= link_to 'See User invites', user_invites_path(@this_events_votes_users[@this_events_votes.index(me)]),class: ["btn", "btn-primary"] %>
             </td>
             <td>
-               <span id="votos">0</span>
+               <%= @count %>
             </td>
               <td>
-                <%= link_to "Vote", class: ["btn", "btn-primary"] %>
+
                 <%= link_to 'Edit', edit_user_event_hour_proposal_path(User.where(id:@this_events_votes_users[@this_events_votes.index(me)]).first.id,@event.id),class: ["btn", "btn-primary"] %>
             </td>
+
+           <td><%= link_to "Vote", class: ["btn", "btn-primary"] %></td>
          </tr>
          <% end %>
       </tbody>

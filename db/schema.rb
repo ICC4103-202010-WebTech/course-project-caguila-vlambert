@@ -103,8 +103,8 @@ ActiveRecord::Schema.define(version: 2020_06_01_233223) do
 
   create_table "invites", force: :cascade do |t|
     t.integer "event_id", null: false
-    t.integer "sender_id"
-    t.integer "target_id"
+    t.integer "sender_id", null: false
+    t.integer "target_id", null: false
     t.string "title"
     t.boolean "status"
     t.datetime "created_at", precision: 6, null: false
@@ -160,6 +160,9 @@ ActiveRecord::Schema.define(version: 2020_06_01_233223) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "location"
     t.string "bio"
+    t.index "\"sender\", \"target\"", name: "index_users_on_sender_and_target"
+    t.index "\"senders\"", name: "index_users_on_senders"
+    t.index "\"targets\"", name: "index_users_on_targets"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -175,8 +178,6 @@ ActiveRecord::Schema.define(version: 2020_06_01_233223) do
   add_foreign_key "hour_proposals", "users"
   add_foreign_key "images", "events"
   add_foreign_key "invites", "events"
-  add_foreign_key "invites", "senders"
-  add_foreign_key "invites", "user", column: "target_id"
   add_foreign_key "organization_users", "organizations"
   add_foreign_key "organization_users", "users"
   add_foreign_key "passwords", "users"
