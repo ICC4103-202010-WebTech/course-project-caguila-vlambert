@@ -175,4 +175,9 @@ ActiveRecord::Schema.define(version: 2020_06_01_233223) do
   add_foreign_key "hour_proposals", "users"
   add_foreign_key "images", "events"
   add_foreign_key "invites", "events"
+  add_foreign_key "invites", "senders"
+  add_foreign_key "invites", "user", column: "target_id"
+  add_foreign_key "organization_users", "organizations"
+  add_foreign_key "organization_users", "users"
+  add_foreign_key "passwords", "users"
 end

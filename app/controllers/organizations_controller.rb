@@ -66,7 +66,13 @@ class OrganizationsController < ApplicationController
   # DELETE /organizations/1
   # DELETE /organizations/1.json
   def destroy
-    @organization.delete
+
+    #@my_org_participants.each do |user|
+    #  user.destroy
+    #   end
+
+
+    @organization.destroy
     respond_to do |format|
       format.html { redirect_to organizations_url, notice: 'Organization was successfully destroyed.' }
       format.json { head :no_content }

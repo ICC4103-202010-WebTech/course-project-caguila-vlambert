@@ -89,6 +89,7 @@
             <th scope="col">Who proposed that hour</th>
             <th scope="col">Date proposal</th>
             <th scope="col">See user</th>
+           <th scope="col">Votes count</th>
             <th scope="col">Action</th>
          </tr>
          <% @this_events_votes.each do |me|%>
@@ -105,8 +106,12 @@
             <td>
                <%= link_to 'See User invites', user_invites_path(@this_events_votes_users[@this_events_votes.index(me)]),class: ["btn", "btn-primary"] %>
             </td>
+            <td>
+               <span id="votos">0</span>
+            </td>
               <td>
-               <%= link_to 'Edit', edit_user_event_hour_proposal_path(User.where(id:@this_events_votes_users[@this_events_votes.index(me)]).first.id,@event.id),class: ["btn", "btn-primary"] %>
+                <%= link_to "Vote", class: ["btn", "btn-primary"] %>
+                <%= link_to 'Edit', edit_user_event_hour_proposal_path(User.where(id:@this_events_votes_users[@this_events_votes.index(me)]).first.id,@event.id),class: ["btn", "btn-primary"] %>
             </td>
          </tr>
          <% end %>
