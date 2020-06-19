@@ -84,8 +84,12 @@
       <% @this_events_votes = HourProposal.where(event_id:@event.id).pluck(:vote)%>
       <% @this_events_votes_users = HourProposal.where(event_id:@event.id).pluck(:user_id)%>
       <% @this_events_votes_is_creator = HourProposal.where(event_id:@event.id).pluck(:is_voter_creator)%>
+      <%begin%>
       <% @c=HourProposal.where(event_id:@event.id).first %>
       <% @count=@c.count %>
+      <%rescue%>
+      <%@count = 0%>
+      <%end%>
      <tbody>
          <tr>
             <th scope="col">#</th>

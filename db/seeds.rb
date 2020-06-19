@@ -29,13 +29,7 @@ end
     user.bio= Faker::Lorem.paragraph(sentence_count: 3)
   end
 end
-15.times do
-  Email.create do |email|
-    email.mail = Faker::Internet.email
-    email.user_id = User.all.sample.id
-    email.active = true
-  end
-end
+
 5.times do
   Organization.create do |organization|
     organization.description = Faker::IndustrySegments.sector

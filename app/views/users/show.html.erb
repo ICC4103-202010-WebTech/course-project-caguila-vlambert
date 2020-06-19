@@ -1,15 +1,15 @@
-<div class="card" style="padding:20px">
+<div class="card" style="padding:20px" style="margin-left:360px">
    <div class="card" style="maring-left:130px">
-   <form action="/evencre">
-<input name="q" type="text" placeholder="Search Event by creator name">
-<button type="submit">Search</button>
-   <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Edit profile</h5>
-        <p class="card-text">here you can edit your profile contact info</p>
-        <%= link_to 'Edit user', edit_user_path(@user.id) ,class: ["btn", "btn-primary"]%>
+      <form action="/evencre">
+      <input name="q" type="text" placeholder="Search Event by creator name">
+      <button class="btn-success" type="submit">Search</button>
+      <div class="card">
+         <div class="card-body">
+            <h5 class="card-title">Edit profile</h5>
+            <p class="card-text">here you can edit your profile contact info</p>
+            <%= link_to 'Edit user', edit_user_path(@user.id) ,class: ["btn", "btn-primary"]%>
+         </div>
       </div>
-    </div>
       <p id="notice"><%= notice %></p>
       <h3>Profile of <%= @user.name%></h3>
       <%= @is_boolean%>
@@ -38,7 +38,7 @@
          </tbody>
       </table>
       <h4 style="maring:10px">My events </h4>
-      <table class="table table-dark">
+      <table class="table table-dark" style="maring-left:130px">
          <tbody>
             <tr>
                <th scope="col">Event description </th>
@@ -75,4 +75,3 @@
       </table>
    </div>
 </div>
- 

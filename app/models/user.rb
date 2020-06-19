@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
     has_many :target_messages, :class_name => 'Message'
     has_many :sender_messages, :class_name => 'Message'
     has_many :sender_invites, :class_name => 'Invite'
