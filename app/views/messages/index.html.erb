@@ -1,0 +1,70 @@
+<div style="margin-left:140px">
+<div style="margin-right:140px">
+<p id="notice"><%= notice %></p>
+
+<%= link_to  'Send message',new_user_message_path(current_user.id),class: ["btn","btn-success"]%>
+<h1>Messages</h1>
+<h4>Not Seen </h4>
+<table class="table table-bordered table-dark">
+  <thead>
+    <tr>
+      <th >Sender</th>
+            <th >Content</th>
+      <th >When?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @messages.where(seen:false).each do |message| %>
+      <tr class="bg-primary">
+        <td><%= User.where(id:message.sender_id).first.name %></td>
+        <td><%= message.content %></td>
+        <td><%= message.created_at %></td>
+        <%message.seen = true%>
+        <%message.save%>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<h4>Seen </h4>
+<table class="table table-bordered table-dark">
+  <thead>
+    <tr>
+      <th >Sender</th>
+            <th >Content</th>
+      <th >When?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @messages.where(seen:true).each do |message| %>
+      <tr  class="bg-success">
+        <td><%= User.where(id:message.sender_id).first.name %></td>
+        <td><%= message.content %></td>
+        <td><%= message.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<h4>The messages i have send</h4>
+<table class="table table-bordered table-dark">
+  <thead>
+    <tr>
+      <th >Target</th>
+      <th >Content</th>
+      <th >When?</th>
+      <th >Seen?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% Message.where(sender_id:current_user.id).each do |message| %>
+      <tr>
+        <td><%= User.where(id:message.target_id).first.name %></td>
+        <td><%= message.content %></td>
+        <td><%= message.updated_at %></td>
+        <td><%= message.seen %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+</div>
+</div>

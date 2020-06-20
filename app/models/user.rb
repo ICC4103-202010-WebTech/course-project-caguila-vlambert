@@ -15,6 +15,7 @@ class User < ApplicationRecord
     has_many :comments, :dependent => :delete_all
     has_many :events, :dependent => :delete_all
     before_save :check_pasw_and_mail
+    before_destroy :n
     before_destroy :notify_org
     scope :activemail, ->{ joins(:emails).merge(Email.active)}
     private
@@ -30,5 +31,15 @@ class User < ApplicationRecord
     end
     def notify_org
         id_list = Organization.joins(organization_users: :users)
+    end
+    def n
+        ev = Event.where(user_id:self.id)
+        ev.each do |e|
+            puts(e.user_id)
+            e.puts("va a cambiar")
+            e.user_id = nil
+            e.save
+            puts(e.user_id)
+        end
     end
 end

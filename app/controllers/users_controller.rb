@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :del]
+ 
   # GET /users
   # GET /users.json
   def index
@@ -60,7 +60,13 @@ class UsersController < ApplicationController
       end
     end
   end
-
+  def del 
+    @user.destroy
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: 'User was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
@@ -78,9 +84,12 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
+    puts(yaas)
+  end
+  def destroy
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -93,6 +102,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.fetch(:user, {}).permit(:id,:admin, :name, :location, :bio)
+      params.fetch(:user, {}).permit(:id,:admin, :name, :location, :bio,:password,:email)
     end
 end

@@ -1,4 +1,8 @@
-<%= form_with model: @user do |form| %>
+<div style="margin-left:360px ">
+<div style="margin-right:360px ">
+
+<%= form_with model: @user,url: users_admin_plz_index_path, method: :post do |form|  %>
+
   <ul>
         <li><%= form.radio_button(:admin, "True") %>
         <%= label_tag(:admin, "Si admin") %></li>
@@ -18,6 +22,14 @@
      <div class="form-group">
       <%= form.label :bio %>
       <%= form.text_field :bio, class: "form-control" %>
+    </div>
+       <div class="form-group">
+      <%= form.label :email %>
+      <%= form.text_field :email, class: "form-control" %>
+    </div>
+       <div class="form-group">
+      <%= form.label :password %>
+      <%= form.text_field :password, class: "form-control" %>
     </div>
   
   
@@ -41,3 +53,5 @@
     <%= form.submit %>
   </div>
 <% end %>
+</div>
+</div>

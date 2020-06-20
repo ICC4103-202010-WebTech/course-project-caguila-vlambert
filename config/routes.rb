@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'evencre', to: "events#searchcreator"
   get 'evenorg', to: "events#searchorg"
   get 'searchorg', to: "organizations#search"
+  get 'xao_us/:id', to: "users#del", as: 'jiji' 
   get '/admin/organizations', to: "organizations#index"
   post 'admin/organizations', to: "organizations#create"
   get '/admin/organization/:id', to: "organizations#show"
@@ -17,9 +18,11 @@ Rails.application.routes.draw do
   patch '/admin/users/:id', to: "users#update"
   delete 'admin/organizations/:id' ,to: "organizations#destroy"
   delete 'admin/users/:id', to: "users#destroy"
+  resources :users_admin_plz, :controller => 'users'
   resources :users do
     resources :invites
     resources :organization_users
+    resources :messages
     resources :events do
       resources :invites
       resources :hour_proposals
@@ -47,4 +50,5 @@ Rails.application.routes.draw do
   resources :event_files
   resources :invites
   resources :hour_proposals
+  resources :messages
 end
