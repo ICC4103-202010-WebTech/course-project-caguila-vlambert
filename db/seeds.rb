@@ -1,110 +1,163 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then ser loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.firs
-#20.times do
-  #Events.create do |event|
-  #event.description = Faker::Marketing.buzzwords
-  #event.place = Faker::Company.name
 
-  #end
-10.times do
-  User.create do |user|
-    user.name = Faker::Name.name
-    user.admin = false
-    user.last =  Faker::Date.between(from: 1.year.ago, to: Date.today)
-    user.location= Faker::Address.city
-    user.bio= Faker::Lorem.paragraph(sentence_count: 3)
-  end
-end
-5.times do
-  User.create do|user|
-    user.name = Faker::Name.name
-    user.admin = true
-    user.last =  Faker::Date.between(from: 1.year.ago, to: Date.today)
-    user.location= Faker::Address.city
-    user.bio= Faker::Lorem.paragraph(sentence_count: 3)
-  end
-end
-
-5.times do
-  Organization.create do |organization|
-    organization.description = Faker::IndustrySegments.sector
-    organization.place = Faker::Address.unique.community
-    organization.name = Faker::Company.unique.name
-  end
-end
-
+i=0
 15.times do
-  Password.create do |password|
-    password.user_id = User.all.sample.id
-    password.psw =  Faker::Internet.password
-    password.active = true
-  end
+  i=i+1
+  p=""
+  user=User.new()
+  user.name = Faker::Name.name
+  user.admin = false
+  user.last =  Faker::Date.between(from: 1.year.ago, to: Date.today)
+  user.location= Faker::Address.city
+  user.bio= Faker::Lorem.paragraph(sentence_count: 3)
+  user.email = Faker::Internet.email
+  p=Faker::Internet.unique.password(min_length:6)
+  user.password = p
+  user.save
+  password=Password.new()
+  password.user_id = i
+  password.psw = p
+  password.active = true
+  password.save
+  email=Email.new()
+  email.mail= user.email
+  email.user_id = i
+  email.active = true
+  email.save
 end
-10.times do
-  OrganizationUser.create do |organization_user|
-    organization_user.organization_id = Organization.all.sample.id
-    organization_user.user_id = User.all.sample.id
-    organization_user.active = [true,false].sample
-  end
+5.times do
+  i=i+1
+  p=""
+  user=User.new()
+   user.name = Faker::Name.name
+   user.admin = true
+   user.last =  Faker::Date.between(from: 1.year.ago, to: Date.today)
+   user.location= Faker::Address.city
+   user.bio= Faker::Lorem.paragraph(sentence_count: 3)
+   user.email = Faker::Internet.email
+  p=Faker::Internet.unique.password(min_length:6)
+  user.password = p
+  user.save
+  password=Password.new()
+  password.user_id = i
+  password.psw = p
+  password.active = true
+  password.save
+  email=Email.new()
+  email.mail= user.email
+  email.user_id = i
+  email.active = true
+  email.save
 end
-4.times do
-  Event.create! do |event|
-    event.description = Faker::Book.title
-    event.place = Faker::WorldCup.stadium
-    event.user_id = User.all.sample.id
-    event.public = [true,false].sample
-    event.is_org = [true,false].sample
-    event.organization_id = Organization.all.sample.id
+l=0
+u=0
+5.times do
+  l=l+1
+  org=Organization.new()
+  org.description = Faker::IndustrySegments.sector
+  org.place = Faker::Address.unique.community
+  org.name = Faker::Company.unique.name
+  org.save
+  4.times do
+    u=u+1
+    orgus=OrganizationUser.new()
+    orgus.organization_id=l
+    orgus.user_id = u
+    orgus.active = true
+    orgus.save
 
   end
 end
-16.times do
-  HourProposal.create do |hour_proposal|
-    hour_proposal.event_id = Event.all.sample.id
-    hour_proposal.user_id = User.all.sample.id
-    hour_proposal.vote = Faker::Date.in_date_period
-    hour_proposal.is_voter_creator = [true,false].sample
-  end
+p=0
+u=1
+5.times do
+  p=p+1
+  event=Event.new()
+  event.description =Faker::Book.title
+  event.place = Faker::WorldCup.stadium
+  event.public = [true,false].sample
+  event.is_org = true
+  event.organization_id = p
+  event.user_id =u
+  event.save
+  u=u+4
 end
-
-20.times do
-  EventChat.create do |event_chat|
-    event_chat.event_id = Event.all.sample.id
-    event_chat.user_id = User.all.sample.id
-    event_chat.content = Faker::Lorem.paragraph(sentence_count: 2)
-  end
-end
-30.times do
-  Comment.create do |comment|
-    comment.user_id = User.all.sample.id
-    comment.event_id = Event.all.sample.id
-    comment.content = Faker::Lorem.paragraph(sentence_count: 2)
-  end
-end
-20.times do
-  Invite.create do |invite|
-    invite.event_id = Event.all.sample.id
-    invite.sender_id = User.all.sample.id
-    invite.target_id = User.all.sample.id
+e=0
+u=1
+i=1
+5.times do
+  e=e+1
+  3.times do
+    i=i+1
+    invite=Invite.new()
+    invite.event_id= e
+    invite.sender_id=u
+    invite.target_id=i
     invite.title = Faker::Company.name
-    invite.status = [true,false].sample
-
+    invite.status = true
+    invite.save
   end
+  i=i+1
+  u=u+4
 end
-20.times do
-  Message.create do |message|
-    message.target_id = User.all.sample.id
-    message.sender_id = User.all.sample.id
-    message.content = Faker::Lorem.paragraph(sentence_count: 2)
-    message.seen = [true,false].sample
-
+e=0
+u=1
+5.times do
+  e=e+1
+  2.times do
+    u=u+1
+    hourprop=HourProposal.new()
+    hourprop.event_id=e
+    hourprop.user_id=u
+    hourprop.vote=Faker::Date.forward(days: 60)
+    hourprop.is_voter_creator=true
+    hourprop.count= 0
+    hourprop.save
   end
+  u=u+2
 end
+e=0
+o=0
+5.times do
+  e=e+1
+  if o==0
+    u=[2,3,4]
+  elsif o==1
+    u=[6,7,8]
+  elsif o==2
+    u=[10,11,12]
+  elsif o==3
+    u=[14,15,16]
+  elsif o==4
+    u=[18,19,20]
+  end
+  5.times do
+    ec=EventChat.new()
+    ec.event_id = e
+    ec.user_id =u.sample
+    ec.content = Faker::Lorem.paragraph(sentence_count: 2)
+    ec.save
+  end
+  7.times do
+    comm=Comment.new()
+    comm.user_id=u.sample
+    comm.event_id = e
+    comm.content = Faker::Lorem.paragraph(sentence_count: 2)
+    comm.save
+  end
+  o=o+1
+end
+i=1
+10.times do
+  men=Message.new()
+  men.target_id=i
+  men.sender_id=i+1
+  men.content =Faker::Lorem.paragraph(sentence_count: 2)
+  men.seen = [true,false].sample
+  puts i
+  men.save
+  i=i+2
+end
+
 
 
 

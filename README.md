@@ -11,9 +11,11 @@ Things you may want to cover:
 
 * Configuration
 
+* yarn install --check-files
+
 * rake db:migrate
 
-* rake db:setup then rake db:seed then rake db:populate_fake_data and you are all set to go
+* db:seed and you are all set to go
 
 * How to run the test suite
 
