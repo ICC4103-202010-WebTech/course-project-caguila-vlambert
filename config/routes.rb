@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'evenorg', to: "events#searchorg"
   get 'searchorg', to: "organizations#search"
   get 'xao_us/:id', to: "users#del", as: 'jiji' 
+  post 'voting/:id', to: "hour_proposals#voting", as: 'voting_event'
   get '/admin/organizations', to: "organizations#index"
   post 'admin/organizations', to: "organizations#create"
   get '/admin/organization/:id', to: "organizations#show"
@@ -43,7 +44,7 @@ Rails.application.routes.draw do
     resources :comments
     resources :event_files
     resources :images
-  
+    resources :event_videos
   end
   resources :comments
   resources :images
@@ -51,4 +52,5 @@ Rails.application.routes.draw do
   resources :invites
   resources :hour_proposals
   resources :messages
+  resources :event_videos
 end

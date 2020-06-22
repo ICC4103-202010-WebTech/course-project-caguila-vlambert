@@ -12,6 +12,9 @@ class Event < ApplicationRecord
   accepts_nested_attributes_for :event_files
   accepts_nested_attributes_for :invites
   accepts_nested_attributes_for :hour_proposals
+  has_many :event_videos ,inverse_of: :event , :dependent => :delete_all
+  accepts_nested_attributes_for :event_videos
+
 
   def notify_event_deleted
     my_id = self.id

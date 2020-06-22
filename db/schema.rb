@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_19_023032) do
+ActiveRecord::Schema.define(version: 2020_06_22_043650) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -67,6 +67,13 @@ ActiveRecord::Schema.define(version: 2020_06_19_023032) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_event_files_on_event_id"
+  end
+
+  create_table "event_videos", force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_event_videos_on_event_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -179,6 +186,7 @@ ActiveRecord::Schema.define(version: 2020_06_19_023032) do
   add_foreign_key "event_chats", "events"
   add_foreign_key "event_chats", "users"
   add_foreign_key "event_files", "events"
+  add_foreign_key "event_videos", "events"
   add_foreign_key "events", "organizations"
   add_foreign_key "events", "users"
   add_foreign_key "hour_proposals", "events"

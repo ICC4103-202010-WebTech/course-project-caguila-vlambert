@@ -1,3 +1,4 @@
+<div style="margin-left:190px ; margin-right:190px">
 <p id="notice"><%= notice %></p>
 <form action="/evenorg">
 <input name="q" type="text" placeholder="Search Event of organization">
@@ -11,12 +12,13 @@
             <% @my_actual_orgs_names = Organization.where(id:@my_org_ids).pluck(:name)%>
             <% @my_actual_orgs_ides = Organization.where(id:@my_org_ids).pluck(:id)%>
             <% @my_actual_orgs_places = Organization.where(id:@my_org_ids).pluck(:place)%>
-            <table class="table table-dark">
+            <table class="table table-bordered table-dark">
             <tbody>
                 <tr>
                 <th scope="col">#</th>    
                 <th scope="col">Organization</th>
                 <th scope="col">Place</th>
+                <th scope="col">See</th>
                 </tr>
                 <% @my_actual_orgs_names.each do |me|%>
                 <tr>
@@ -24,7 +26,7 @@
                 <td><%= me %></td>
                 <% num = @my_actual_orgs_names.index(me) %>
                 <td><%= @my_actual_orgs_places[num] %></td>
-                <td><%= link_to 'See Org', organization_path(@my_actual_orgs_ides[num]) %></td>
+                <td><%= link_to 'See Org', organization_path(@my_actual_orgs_ides[num]),class: ["btn", "btn-primary"] %></td>
                 </tr>
             <% end %>
 
@@ -33,3 +35,4 @@
             
       </div>
     </div>
+</div>

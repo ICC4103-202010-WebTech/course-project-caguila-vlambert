@@ -10,15 +10,14 @@ class InvitesController < ApplicationController
   # GET /invites/1
   # GET /invites/1.json
   def show
+    @invites_of_user = Invite.where(target_id:params[:user_id])
   end
 
   # GET /invites/new
   def new
     @invite = Invite.new
     @idd = params[:event_id]
-    puts("el parametro nuevo es =")
-    puts(@idd)
-    puts("-----")
+    
   end
 
   # GET /invites/1/edit

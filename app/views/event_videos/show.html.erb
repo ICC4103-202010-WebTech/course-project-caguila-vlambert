@@ -1,0 +1,7 @@
+<p id="notice"><%= notice %></p>
+ <% if(event_video.content.present?)%>
+        <%=link_to image_tag(event_video.content,:size => "400x400"),url_for(event_video.content) %>
+    <% else %>
+    <%end%>
+
+

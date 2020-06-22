@@ -1,9 +1,9 @@
 
 <!DOCTYPE html>
 <html>
+<div style="margin-left:190px ; margin-right:190px">
 <p id="notice"><%= notice %></p>
-<table class="table table-dark">
-<%    @invites = Invite.where(target_id:1)%>
+<table class="table table-bordered table-dark">
  <tbody>
     <tr>
       <th scope="col">Event description </th>
@@ -11,7 +11,7 @@
       <th scope="col"> When is it?</th>
       <th scope="col"> Title</th>
     </tr>
-     <% @invites.each do |me|%>
+     <% @invites_of_user.each do |me|%>
        <% sender = User.where(id:me.sender_id).first%>
     <tr>
       <td><%= me.event.description%></td>
@@ -23,5 +23,5 @@
 
  </tbody>
 </table>
-
+</div>
 </html>

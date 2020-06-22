@@ -1,24 +1,25 @@
 <div style="margin-left:190px ; margin-right:190px">
-
-<%= form_with(model: event_file, local: true) do |form| %>
+<%= form_with(model: event_video, local: true) do |form| %>
+<h2>Upload vidoes to de event</h2>
 <ul class="list-group">
 <li class="list-group-item">
-<%= form.label :content, "Add File" %>
+<%= form.label :content, "Add Video" %>
 <%= form.file_field :content %>
 </li>
 <%= hidden_field_tag(:event_id, @idd) %>
-  <% if event_file.errors.any? %>
+  <% if event_video.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(event_file.errors.count, "error") %> prohibited this event_file from being saved:</h2>
+      <h2><%= pluralize(event_video.errors.count, "error") %> prohibited this event_video from being saved:</h2>
 
       <ul>
-        <% event_file.errors.full_messages.each do |message| %>
+        <% event_video.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 <li class="list-group-item">
+
   <div class="actions">
     <%= form.submit %>
   </div>

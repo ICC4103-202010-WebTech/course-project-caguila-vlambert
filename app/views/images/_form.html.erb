@@ -1,9 +1,18 @@
+<div style="margin-left:190px ; margin-right:190px">
+
 <%= form_with(model: image, local: true) do |form| %>
+<ul class="list-group">
+
 <%= hidden_field_tag(:event_id, @idd) %>
+<li class="list-group-item">
 <%= form.label :flayer, "Add Image" %>
 <%= form.file_field :flayer %>
-
+</li>
+<li class="list-group-item">
   <div class="actions">
     <%= form.submit %>
   </div>
+  </li>
+  </ul>
 <% end %>
+</div>

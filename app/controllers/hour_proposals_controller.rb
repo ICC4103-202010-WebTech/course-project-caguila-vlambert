@@ -24,6 +24,17 @@ class HourProposalsController < ApplicationController
     @idd = params[:event_id]
     @usr_idd = params[:user_id]
   end
+  def voting
+    te = HourProposal.where(id:params[:id]).first
+
+    te.count = te.count + 1
+    te.save!
+    @event = Event.where(id:te.event_id).first
+    respond_to do |format|
+      format.html { redirect_to @event}
+      format.json { render :show, status: :created, location: @event }
+    end
+  end
 
   # POST /hour_proposals
   # POST /hour_proposals.json
