@@ -19,6 +19,12 @@ Rails.application.routes.draw do
   patch '/admin/users/:id', to: "users#update"
   delete 'admin/organizations/:id' ,to: "organizations#destroy"
   delete 'admin/users/:id', to: "users#destroy"
+  get 'tos', to: "users#tos"
+  get 'tus', to: "users#tus"
+  get 'sign_this_user', to: "users#link_sign", as: 'link_sign'
+  patch 'sign_u', to: "users#sign", as: 'sign_u'
+  get 'report_content/:id', to: "events#report", as: 'report_event'
+  get 'report_coment/:id', to: "events#reportcoment", as: 'report_comment'
   resources :users_admin_plz, :controller => 'users'
   resources :users do
     resources :invites

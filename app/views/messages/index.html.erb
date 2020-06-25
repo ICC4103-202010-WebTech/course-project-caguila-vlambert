@@ -16,7 +16,11 @@
   <tbody>
     <% @messages.where(seen:false).each do |message| %>
       <tr class="bg-primary">
+      <%begin%>
         <td><%= User.where(id:message.sender_id).first.name %></td>
+        <%rescue%>
+                <td>0</td>
+        <%end%>
         <td><%= message.content %></td>
         <td><%= message.created_at %></td>
         <%message.seen = true%>
@@ -37,7 +41,12 @@
   <tbody>
     <% @messages.where(seen:true).each do |message| %>
       <tr  class="bg-success">
-        <td><%= User.where(id:message.sender_id).first.name %></td>
+        <%begin%>
+       <%o = User.where(id:message.sender_id).first.name %>
+        <%rescue%>
+        <% o = 0%>
+        <%end%>
+        <td><%=o%></td>
         <td><%= message.content %></td>
         <td><%= message.created_at %></td>
       </tr>
@@ -57,8 +66,11 @@
   <tbody>
     <% Message.where(sender_id:current_user.id).each do |message| %>
       <tr>
-        <td><%= User.where(id:message.target_id).first.name %></td>
-        <td><%= message.content %></td>
+<%begin%>
+        <td><%= User.where(id:message.sender_id).first.name %></td>
+        <%rescue%>
+                <td>0</td>
+        <%end%>        <td><%= message.content %></td>
         <td><%= message.updated_at %></td>
         <td><%= message.seen %></td>
       </tr>

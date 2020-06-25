@@ -10,7 +10,6 @@ class EventsController < ApplicationController
     @events =Event.where("description like ?", "%#{params[:q]}%")
   end
   def searchcreator
-   
     @creator = User.where("name like ?", "%#{params[:q]}%").first
     @events =Event.where(user_id:@creator.id)
     @parametro = @creator.name
@@ -23,6 +22,45 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
+  end
+def reportcoment
+  u = User.where(admin:true)
+  eventt = Comment.where(id:params[:id]).first
+  sentence = "The user # "
+  sentence.concat(current_user.id.to_s)
+  sentence.concat(" reported the coment with the following content ")
+  sentence.concat(eventt.content.to_s)
+  u.each do |user|
+    i = Message.new()
+    i.target_id = user.id
+    i.content = sentence
+    i.seen = false
+    i.save
+  end
+  respond_to do |format|
+    format.html { redirect_to root_path, notice: 'Comment repoted' }
+  end
+end
+  def report
+    if current_user
+        u = User.where(admin:true)
+        eventt = Event.where(id:params[:id]).first
+        sentence = "The User #"
+        sentence.concat(current_user.id.to_s)
+        sentence.concat(" reported the event ")
+        sentence.concat(eventt.description.to_s)
+        u.each do |user|
+          i = Message.new()
+          i.target_id = user.id
+          i.content = sentence
+          i.seen = false
+          i.save
+        end
+        respond_to do |format|
+          format.html { redirect_to eventt, notice: 'Report Created' }
+        
+      end
+    end
   end
 
   # GET /events/new

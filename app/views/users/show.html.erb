@@ -1,5 +1,6 @@
 <div class="card"  style="margin-left:190px ; margin-right:190px">
    <div class="card" style="maring-left:130px">
+         <p id="notice" ><%= notice %></p>
       <form action="/evencre">
       <input name="q" type="text" placeholder="Search Event by creator name">
       <button class="btn-success" type="submit">Search</button>
@@ -10,7 +11,6 @@
             <%= link_to 'Edit user', edit_user_path(@user.id) ,class: ["btn", "btn-primary"]%>
          </div>
       </div>
-      <p id="notice"><%= notice %></p>
       <ul class="list-group">
       <li class="list-group-item">
       <h3>Profile of <%= @user.name%></h3>

@@ -1,17 +1,25 @@
-<div style="margin-left:140px ; margin-right:140px">
+<div style="margin-left:190px ; margin-right:190px">
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
-
+<ul class="list-group">
+<li class="list-group-item">
   <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
+    </li>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+  <li class="list-group-item">
+
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+        </li>
+
   <% end %>
+
+<li class="list-group-item">
 
   <div class="field">
     <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
@@ -21,25 +29,46 @@
       <em><%= @minimum_password_length %> characters minimum</em>
     <% end %>
   </div>
+    </li>
+
+<li class="list-group-item">
 
   <div class="field">
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
+    </li>
+
+<li class="list-group-item">
 
   <div class="field">
     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
+    </li>
+
+<li class="list-group-item">
 
   <div class="actions">
     <%= f.submit "Update" %>
   </div>
 <% end %>
+  </li>
+
+<li class="list-group-item">
 
 <h3>Cancel my account</h3>
+  </li>
+
+<li class="list-group-item">
 
 <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+</li>
+
+<li class="list-group-item">
 
 <%= link_to "Back", :back %>
+  </li>
+  </ul>
+
 </div>

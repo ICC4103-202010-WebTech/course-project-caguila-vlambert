@@ -1,18 +1,7 @@
 <div style="margin-left:360px ">
 <div style="margin-right:360px ">
+<%= form_with model: @user,url: users_admin_plz_path, method: :patch do |form|  %>
 
-<%= form_with model: @user,url: users_admin_plz_index_path, method: :post do |form|  %>
-<% if user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this @user from being saved:</h2>
-
-      <ul>
-        <% user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
   <ul>
         <li><%= form.radio_button(:admin, "True") %>
         <%= label_tag(:admin, "Si admin") %></li>
@@ -42,10 +31,7 @@
       <%= form.text_field :password, class: "form-control" %>
     </div>
   
-   <div class="field">
-      <%= form.check_box :Accept %>
-      <%= form.label :Accept %>
-    </div>
+  
   
   
   

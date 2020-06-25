@@ -15,17 +15,16 @@
       <li class="nav-item" style="margin: 10px" style ="color:white;"><%= link_to 'My events', user_events_path(1),class: ["btn","btn-primary"] %></li>
       <li class="nav-item" style="margin: 10px" style ="color:white;"><%= link_to 'My profile', user_path(current_user.id),class: ["btn","btn-primary"] %></li>
       <li class="nav-item" style="margin: 10px" style ="color:white;"><%= link_to 'Invites', user_invite_path(current_user.id,1),class: ["btn","btn-primary"] %></li>
+      <li class="nav-item" style="margin: 10px" style ="color:white;"><%= link_to ' See my organizations', user_organization_user_path(1,1),class: ["btn","btn-primary"] %></li>
     <%else%>
-      <li class="nav-item" style="margin: 10px" style ="color:white;"><%= link_to 'My profile', user_path(1),class: ["btn","btn-primary"] %></li>
-      <li class="nav-item" style="margin: 10px" style ="color:white;"><%= link_to 'Invites', user_invite_path(1,1),class: ["btn","btn-primary"] %></li>
+
     <%end%>
-    <li class="nav-item" style="margin: 10px" style ="color:white;"><%= link_to ' See my organizations', user_organization_user_path(1,1),class: ["btn","btn-primary"] %></li>
     <%if current_user%>
       <li class="nav-item" style="margin: 10px" style ="color:white;"><%= link_to 'Inbox', user_messages_path(current_user.id) , class: ["btn","btn-primary"]%></li>
       <li class="nav-item" style="margin-left: 410px; margin-top: 10px" style ="color:white;"><%= link_to ' Change password', edit_user_registration_path , class: ["btn","btn-warning"]%></li>
       <li class="nav-item" style="margin-left: 10px; margin-top: 10px" style ="color:white;"><%= link_to ' Sign out', destroy_user_session_path , method: :delete ,class: ["btn","btn-danger"]%></li>
     <%else%>
-      <li class="nav-item" style="margin: 10px" style ="color:white;"><%= link_to ' Sign up', new_user_registration_path,class: ["btn","btn-success"] %></li>
+      <li class="nav-item" style="margin-left: 410px; margin-top:10px" style ="color:white;"><%= link_to ' Sign up', link_sign_path,class: ["btn","btn-success"] %></li>
       <li class="nav-item" style="margin: 10px" style ="color:white;"><%= link_to ' Sign in', new_user_session_path , class: ["btn","btn-success"]%></li>
       <li class="nav-item" style="margin: 10px" style ="color:white;"><%= link_to ' Recover password', new_password_path('user') , class: ["btn","btn-warning"]%></li>
     <%end%>
@@ -38,6 +37,6 @@
     <%= yield %>
   </body>
   <footer>
-  <span style="margin:10px">made by carlos and lambos engenier team</span>
+  <span style="margin:10px">Made by carlos&lambos engenier team </span><%= link_to "See Terms of Use",tos_path%> &<%= link_to "See Terms of Service",tus_path%>
   </footer>
 </html>

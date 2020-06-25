@@ -1,12 +1,16 @@
 <div style="margin-left:360px">
 <p class="notice"><%= notice %></p>
        <p class="alert"><%= alert %></p>
+
+<%if current_user%>
+<%if current_user.admin%>
 <h5>Search users</h5>
 
 <form action="/search">
 <input name="q" type="text" placeholder="Search User">
 <button type="submit">Search</button>
 </div>
+
 <div class="row" style="margin:10px">
 
   <div class="col-sm-6" style="margin-left:340px">
@@ -80,6 +84,7 @@
           <th>Comment</th>
           <th>Update</th>
           <th>Delete</th>
+          <th>Report</th>
         </tr>
         <%@comm = Comment.all%>
         <%@comm.each do |com|%>
@@ -91,6 +96,7 @@
         <td><%=com.content%></td>
         <td><%= link_to 'Edit', edit_event_comment_path(Event.where(id:com.event_id).first.id,com.id),class: ["btn", "btn-primary"]%></td>
         <td><%= link_to 'Delete', event_comment_path(Event.where(id:com.event_id).first.id,com.id), data: {confirm:'Are you sure?'},method: :delete,class: ["btn", "btn-primary"]%></td>
+        <td><%= link_to'Report', report_comment_path(com.id),class: ["btn", "btn-primary"]%></td>
         </tr>
         <%end%>
       </tbody>
@@ -134,3 +140,147 @@
 
   </div>
 </div>
+<%else%>
+<h5>Search users</h5>
+
+<form action="/search">
+<input name="q" type="text" placeholder="Search User">
+<button type="submit">Search</button>
+</div>
+<div class="row" style="margin:10px">
+
+  <div class="col-sm-6" style="margin-left:340px">
+
+    <table class="table table-bordered table-dark">
+      <tbody>
+        <tr>
+          <th>Organization</th>
+          <th>Workers</th>
+          <th>See</th>
+        </tr>
+        <%@Orgs = Organization.all%>
+        <%@Orgs.each do |org|%>
+        <% tot_us_org = OrganizationUser.where(organization_id:org.id).pluck(:user_id).uniq.count%>
+        <tr >
+        <td class="table-active"><%=org.name%></td>
+        <td class="table-active"><%=tot_us_org%></td>
+        <td class="table-active"><%= link_to 'See', organization_path(org.id),class: ["btn", "btn-primary"]%></td>
+        </tr>
+        <%end%>
+      </tbody>
+    </table>
+
+  </div>
+  </div> 
+<div class="row" style="margin:10px">
+  <div class="col-sm-6" style="margin-left:340px">
+  
+    <h2>Events</h2>
+    <table class="table table-bordered table-dark">
+      <tbody>
+        <tr>
+          <th>Event</th>
+          <th>#Invited</th>
+          <th>See</th>
+        </tr>
+        <%@evn = Event.all%>
+        <%@evn.each do |e|%>
+        <% tot_e_inv = Invite.where(event_id:e.id).pluck(:target_id).uniq%>
+        <tr>
+        <td><%=e.description%></td>
+        <td><%=tot_e_inv.count%></td>
+        <td><%= link_to 'See', event_path(e.id),class: ["btn", "btn-primary"]%></td>
+        </tr>
+        <%end%>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+<div class="row" style="margin:10px">
+  <div class="col-sm-6" style="margin-left:340px">
+    <h2>Comments</h2>
+    <table class="table table-bordered table-dark">
+      <tbody>
+        <tr>
+          <th>Event</th>
+          <th>From who</th>
+          <th>Comment</th>
+                    <th>Report</th>
+        </tr>
+        <%@comm = Comment.all%>
+        <%@comm.each do |com|%>
+        <%eve_com =Event.where(id:com.event_id).first.description%>
+        <% us= User.where(id:com.user_id).first.name%>
+        <tr>
+        <td><%=eve_com%></td>
+        <td><%=us%></td>
+        <td><%=com.content%></td>
+        <td><%= link_to'Report', report_comment_path(com.id),class: ["btn", "btn-primary"]%></td>
+        </tr>
+        <%end%>
+      </tbody>
+    </table>
+
+
+  </div>
+</div>
+<div class="row" style="margin:10px">
+  <div class="col-sm-6" style="margin-left:340px">
+    <h2>Users</h2>
+    <table class="table table-bordered table-dark">
+      <tbody>
+        <tr>
+          <th>Name</th>
+          <th>Is admin?</th>
+          <th>bio</th>
+          <th>See</th>
+
+        </tr>
+        <%@comm = User.all%>
+        <%@comm.each do |com|%>
+        <tr>
+        <td><%=com.name%></td>
+        <td><%=com.admin%></td>
+        <td><%=com.bio%></td>
+        <td><%= link_to 'See', user_path(com.id),class: ["btn", "btn-primary"]%></td>
+        <td>
+        </td>
+        </tr>
+        <%end%>
+      </tbody>
+    </table>
+
+</div>
+
+  </div>
+</div>
+<%end%>
+<%else%>
+<div class="row" style="margin:10px">
+  <div class="col-sm-6" >
+  
+    <h2>Events</h2>
+    <table class="table table-bordered table-dark">
+      <tbody>
+        <tr>
+          <th>Event</th>
+          <th>#Invited</th>
+          <th>See</th>
+        </tr>
+        <%@evn = Event.where(public:true)%>
+        <%@evn.each do |e|%>
+        <% tot_e_inv = Invite.where(event_id:e.id).pluck(:target_id).uniq%>
+        <tr>
+        <td><%=e.description%></td>
+        <td><%=tot_e_inv.count%></td>
+        <td><%= link_to 'See', event_path(e.id),class: ["btn", "btn-primary"]%></td>
+
+        </tr>
+        <%end%>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+<%end%>

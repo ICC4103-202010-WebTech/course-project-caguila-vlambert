@@ -1,13 +1,23 @@
 <div style="margin-left:340px">
 <%= form_with(model: organization, local: true) do |form| %>
+<ul class="list-group">
+<li class="list-group-item">
 <%= form.label :name%>
-<%= form.text_field :name%>
+<%= form.text_field :name%></li>
+<li class="list-group-item">
+
 <%= form.label :banner, "Banner" %>
-<%= form.file_field :banner %>
+<%= form.file_field :banner %></li>
+<li class="list-group-item">
+
 <%= form.label :description%>
-<%= form.text_field :description%>
+<%= form.text_field :description%></li>
+<li class="list-group-item">
+
 <%= form.label :place%>
-<%= form.text_field :place%>
+<%= form.text_field :place%></li>
+<li class="list-group-item">
+
 <% @list_users = {}%>
 <% cont = 1%>  
 <%= form.fields_for :organization_users  do |f| %>
@@ -20,8 +30,13 @@
     </ul>
   <%end%>
 <%end%>
+</li>
+<li class="list-group-item">
+
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
+</li>
+</ul>
 </div>

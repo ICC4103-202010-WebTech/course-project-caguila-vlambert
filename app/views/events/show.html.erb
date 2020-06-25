@@ -146,10 +146,14 @@
       <li class="list-group-item">
 
 <%= link_to 'Want to invite someone?', new_user_event_invite_path(1,@event.id),class: ["btn", "btn-primary"] %></li>
+
       <li class="list-group-item">
-
 <td><%= link_to 'Create comment', new_comment_path(),class: ["btn", "btn-primary"]%></li>
-
+<%if current_user%>
+      <li class="list-group-item list-group-item-action list-group-item-danger">
+      <%= link_to 'Report event?', report_event_path(@event.id), data: {confirm:'Are you sure you want to report this event, every admin will recibe a message?'},class: ["btn", "btn-primary"] %></li>
+</li>
+<%end%>
 <div class="card text-center" style="margin-left:190px ; margin-right:190px">
 <h3>Image Galery</h3>
 

@@ -22,6 +22,8 @@ class EventVideosController < ApplicationController
   def edit
   end
 
+
+
   # POST /event_videos
   # POST /event_videos.json
   def create
