@@ -36,8 +36,7 @@ class InvitesController < ApplicationController
         format.html { redirect_to @event}
         format.json { render :show, status: :created, location: @event }
       else
-        format.html { render :new }
-        format.json { render json: @invite.errors, status: :unprocessable_entity }
+        format.html { redirect_to @event}
       end
     end
   end

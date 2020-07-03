@@ -7,7 +7,11 @@
         <%=image_tag(@organization.banner,:size => "1900x400") %>
     <% end %>
 <h3>Org name : <%= @organization.name%></h3>
+<%if current_user%>
+<%if current_user.admin%>
 <%= link_to 'Edit', edit_organization_path(@organization.id),class: ["btn", "btn-primary"]%>
+<%end%>
+<%end%>
 <div class="card" style="margin: 20px">
 <table class="table table-bordered table-dark">
  <tbody>

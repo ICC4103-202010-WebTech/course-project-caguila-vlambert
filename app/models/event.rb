@@ -5,7 +5,7 @@ class Event < ApplicationRecord
   has_many :hour_proposals, :dependent => :delete_all
   has_many :invites , :dependent => :delete_all
   belongs_to :organization, optional: true
-  before_destroy :notify_event_deleteds
+  before_destroy :notify_event_deleted
   has_many :images ,inverse_of: :event , :dependent => :delete_all
   accepts_nested_attributes_for :images
   has_many :event_files ,inverse_of: :event , :dependent => :delete_all

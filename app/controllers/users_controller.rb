@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     @users =User.where("name like ?", "%#{params[:q]}%")
   end
   def tos
-  end
+  end 
   def tus
   end
   def show_search
@@ -51,9 +51,13 @@ class UsersController < ApplicationController
   end
   def sign
     @user = User.new(user_params)
+    puts("this user is ")
+      puts(@user.admin)
     respond_to do |format|
       if @user.save
         bypass_sign_in(@user)
+        puts("this user is ")
+        puts(@user.admin)
         format.html { redirect_to root_path, notice: 'Please log in in order to Access all the fetures of this User' }
         format.json { render :show, status: :created, location: @user }
       else

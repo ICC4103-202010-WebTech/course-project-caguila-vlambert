@@ -39,7 +39,13 @@
                      <%= link_to 'See User', user_path(@this_event_invites[@this_event_guests.index(me)]),class: ["btn", "btn-primary"] %>
 
                   </td>
+                  <%if current_user%>
+                  <%if current_user.admin%>
                   <td><%= link_to 'Propouse Date', new_user_event_hour_proposal_path(@this_event_invites[@this_event_guests.index(me)],@event.id),class: ["btn", "btn-primary"]%></td>
+                  <%else%>
+                  <td>Not Admin</td>
+                  <%end%>
+                  <%end%>
 
                </tr>
                <% end %>
@@ -122,8 +128,19 @@
                <%end%>
             </td>
               <td>
+              <%if current_user%>
+              <%if current_user.admin%>
+                            <td>
                 <%= link_to 'Edit', edit_user_event_hour_proposal_path(me.user_id,me.id),class: ["btn", "btn-primary"] %>
-            </td>
+                            </td>
+
+               <%end%>
+               <%else%>
+                           <td>
+                           Operation only for admin
+                           </td>
+
+               <%end%>
 
            <td><%= link_to "Vote", voting_event_path(me.id),method: :post,class: ["btn", "btn-success"] %></td>
          </tr>
@@ -135,6 +152,8 @@
 </div>
 </div>
       <ul class="list-group"style="margin-left:190px ; margin-right:190px">
+      <%if current_user%>
+      <%if current_user.admin%>
       <li class="list-group-item">
 <%= link_to 'Edit', edit_event_path(@event.id),class: ["btn", "btn-primary"]%></li>
       <li class="list-group-item">
@@ -149,8 +168,9 @@
 
       <li class="list-group-item">
 <td><%= link_to 'Create comment', new_comment_path(),class: ["btn", "btn-primary"]%></li>
-<%if current_user%>
-      <li class="list-group-item list-group-item-action list-group-item-danger">
+      
+<%end%>
+<li class="list-group-item list-group-item-action list-group-item-danger">
       <%= link_to 'Report event?', report_event_path(@event.id), data: {confirm:'Are you sure you want to report this event, every admin will recibe a message?'},class: ["btn", "btn-primary"] %></li>
 </li>
 <%end%>

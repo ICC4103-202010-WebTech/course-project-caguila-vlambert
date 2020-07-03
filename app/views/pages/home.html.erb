@@ -1,4 +1,6 @@
 <div style="margin-left:360px">
+  <h2>Admin Operations</h2>
+
 <p class="notice"><%= notice %></p>
        <p class="alert"><%= alert %></p>
 
@@ -15,7 +17,7 @@
 
   <div class="col-sm-6" style="margin-left:340px">
 
-  <h2>Admin operations</h2>
+  <h2>Organization</h2>
     <table class="table table-bordered table-dark">
       <tbody>
         <tr>
@@ -194,6 +196,7 @@
         <%end%>
       </tbody>
     </table>
+          <%= link_to 'Create', new_event_path(),class: ["btn", "btn-primary"]%>
 
   </div>
 </div>

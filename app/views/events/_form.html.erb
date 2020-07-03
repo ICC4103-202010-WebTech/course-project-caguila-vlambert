@@ -1,19 +1,26 @@
 <div style="margin-left:340px">
 <%= form_with(model: event, local: true) do |form| %>
 
- 
+ <ul class="list-group">
+<li class="list-group-item">
     <div class="form-group">
         <%= form.label :event_file, "Add File" %>
         <%= form.file_field :event_file %>
-    </div>
+    </div></li>
+    <li class="list-group-item">
+
+     <div class="form-group">
+        <%= form.label :event_file, "Add File" %>
+        <%= form.file_field :event_file %>
+    </div></li>
+    <li class="list-group-item">
+
      <div class="form-group">
         <%= form.label :event_file, "Add File" %>
         <%= form.file_field :event_file %>
     </div>
-     <div class="form-group">
-        <%= form.label :event_file, "Add File" %>
-        <%= form.file_field :event_file %>
-    </div>
+    </li>
+    </ul>
   <%=form.label :description%>
   <%=form.text_field :description%>
   <%=form.label :place%>

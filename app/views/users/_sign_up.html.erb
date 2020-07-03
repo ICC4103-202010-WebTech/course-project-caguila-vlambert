@@ -3,11 +3,11 @@
 <%= form_with model: @user,url: sign_u_path, method: :patch do |form|  %>
 
   <ul class="list-group">
-        <li class="list-group-item"><%= form.radio_button(:admin, "True") %>
-        <%= label_tag(:admin, "Si admin") %></li>
+        <li class="list-group-item"><%= form.radio_button(:admin, "true") %>
+        <%= label_tag(:admin, "Admin") %></li>
     
     <li class="list-group-item">
-        <%= form.radio_button(:admin, "False") %>
+        <%= form.radio_button(:admin, "false") %>
         <%= label_tag(:admin, "No admin") %></li>
     <li class="list-group-item">
   <div class="form-group">

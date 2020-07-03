@@ -42,6 +42,7 @@ class HourProposalsController < ApplicationController
     @hour_proposal = HourProposal.new(hour_proposal_params)
     @hour_proposal.event_id = params[:event_id]
     @hour_proposal.user_id = params[:user_id]
+    @hour_proposal.count = 0
     @event = Event.where(id:params[:event_id]).first
     respond_to do |format|
       if @hour_proposal.save
